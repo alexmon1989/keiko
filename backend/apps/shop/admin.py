@@ -6,6 +6,7 @@ from .models import Category, Product, Ingredient, Property
 class CategoryAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Category."""
     ordering = ('title',)
+    list_display = ('title', 'is_enabled')
     search_fields = ('title',)
 
 
@@ -13,6 +14,8 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Product."""
     ordering = ('title',)
+    list_display = ('title', 'price', 'frontpad_id', 'is_enabled')
+    list_editable = ('is_enabled',)
     search_fields = ('title',)
 
 

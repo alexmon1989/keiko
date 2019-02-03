@@ -46,6 +46,7 @@ class Product(TimeStampedModel):
     categories = models.ManyToManyField(Category, verbose_name='Категории')
     properties = models.ManyToManyField(Property, verbose_name='Свойства')
     ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты')
+    price = models.FloatField('Цена', blank=True, null=True)
     frontpad_id = models.PositiveIntegerField('id товара в системе Frontpad', null=True, blank=True)
     is_enabled = models.BooleanField('Включено', default=True)
 
