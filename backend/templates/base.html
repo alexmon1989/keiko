@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title -->
+    <title>Classic Header - Full Width | Unify - Responsive Website Template</title>
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <!-- Google Fonts -->
+    <link rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static "assets/bundles/styles.css" %}">
+</head>
+
+
+<body>
+
+<main>
+    <!-- Header -->
+    <header id="js-header" class="u-header u-header--static u-header--show-hide u-header--change-appearance"
+            data-header-fix-moment="500" data-header-fix-effect="slide">
+        <div class="u-header__section u-header__section--dark g-bg-blue-gray g-transition-0_3 g-py-5"
+             data-header-fix-moment-exclude="g-py-10"
+             data-header-fix-moment-classes="g-py-0">
+            <nav class="navbar navbar-expand-lg">
+                <!-- Responsive Toggle Button -->
+                <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0"
+                        type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar"
+                        data-toggle="collapse" data-target="#navBar">
+                    <span class="hamburger hamburger--slider">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </span>
+                </button>
+                <!-- End Responsive Toggle Button -->
+
+                <!-- Logo -->
+                <a href="/" class="navbar-brand">
+                    <img src="{% static 'assets/img/logo/logo.jpg' %}" alt="Image Description">
+                </a>
+                <!-- End Logo -->
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--sm" id="navBar">
+                    <ul class="navbar-nav text-uppercase g-font-weight-600 g-font-size-14 mr-auto">
+                        <li class="nav-item g-mx-60--lg">
+                            <a href="#!" class="nav-link px-0">+7 (8672) 29-22-55</a>
+                        </li>
+                        <li class="nav-item g-mx-60--lg">
+                            <a href="#!" class="nav-link px-0">Акции</a>
+                        </li>
+                        <li class="nav-item g-mx-60--lg">
+                            <a href="#!" class="nav-link px-0">О доставке</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End Navigation -->
+            </nav>
+        </div>
+    </header>
+    <!-- End Header -->
+
+
+    <div class="container-fluid g-mt-10">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="sticky-top g-height-100vh">
+                    Sidebar
+                </div>
+            </div>
+            <div class="col-md-10">
+                Content
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="{% static "assets/bundles/app.js" %}"></script>
+</body>
+</html>
