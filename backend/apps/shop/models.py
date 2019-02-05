@@ -6,6 +6,7 @@ class Category(TimeStampedModel):
     """Модель категории продукта."""
     title = models.CharField('Название', max_length=255)
     weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке категорий.')
+    image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 100px * 64px')
     is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
@@ -31,6 +32,9 @@ class Property(TimeStampedModel):
 class Ingredient(TimeStampedModel):
     """Модель свойства продукта."""
     title = models.CharField('Название', max_length=255)
+    weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке ингредиентов.')
+    image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 100px * 64px')
+    is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
         return self.title

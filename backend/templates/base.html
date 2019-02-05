@@ -24,18 +24,24 @@
 
 <body>
 
-<main>
+<main class="g-bg-black" id="app">
     <!-- Header -->
-    <header id="js-header" class="u-header u-header--static u-header--show-hide u-header--change-appearance"
-            data-header-fix-moment="500" data-header-fix-effect="slide">
+    <header id="js-header"
+            class="u-header u-header--static u-header--show-hide u-header--change-appearance"
+            data-header-fix-moment="500"
+            data-header-fix-effect="slide">
         <div class="u-header__section u-header__section--dark g-bg-blue-gray g-transition-0_3 g-py-5"
              data-header-fix-moment-exclude="g-py-10"
              data-header-fix-moment-classes="g-py-0">
             <nav class="navbar navbar-expand-lg">
                 <!-- Responsive Toggle Button -->
                 <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0"
-                        type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar"
-                        data-toggle="collapse" data-target="#navBar">
+                        type="button"
+                        aria-label="Toggle navigation"
+                        aria-expanded="false"
+                        aria-controls="navBar"
+                        data-toggle="collapse"
+                        data-target="#navBar">
                     <span class="hamburger hamburger--slider">
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>
@@ -53,13 +59,13 @@
                 <!-- Navigation -->
                 <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--sm" id="navBar">
                     <ul class="navbar-nav text-uppercase g-font-weight-600 g-font-size-14 mr-auto">
-                        <li class="nav-item g-mx-60--lg">
+                        <li class="nav-item g-mx-80--lg">
                             <a href="#!" class="nav-link px-0">+7 (8672) 29-22-55</a>
                         </li>
-                        <li class="nav-item g-mx-60--lg">
+                        <li class="nav-item g-mx-80--lg">
                             <a href="#!" class="nav-link px-0">Акции</a>
                         </li>
-                        <li class="nav-item g-mx-60--lg">
+                        <li class="nav-item g-mx-80--lg">
                             <a href="#!" class="nav-link px-0">О доставке</a>
                         </li>
                     </ul>
@@ -71,15 +77,15 @@
     <!-- End Header -->
 
 
-    <div class="container-fluid g-mt-10">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
-                <div class="sticky-top g-height-100vh">
-                    Sidebar
-                </div>
+            <div class="col-md-2 g-bg-blue-gray g-pt-20">
+                {% include '_partials/sidebar.html' %}
             </div>
-            <div class="col-md-10">
-                Content
+            <div class="col-md-10 g-pt-20">
+                Content <br>
+
+                {% include '_partials/footer.html' %}
             </div>
         </div>
     </div>

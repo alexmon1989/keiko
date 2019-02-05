@@ -5,8 +5,10 @@ from .models import Category, Product, Ingredient, Property
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Category."""
-    ordering = ('title',)
-    list_display = ('title', 'is_enabled')
+    ordering = ('-weight',)
+    list_display = ('title', 'weight', 'is_enabled')
+    list_editable = ('weight', 'is_enabled',)
+    list_filter = ('is_enabled',)
     search_fields = ('title',)
 
 
@@ -16,13 +18,16 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ('title',)
     list_display = ('title', 'price', 'frontpad_id', 'is_enabled')
     list_editable = ('is_enabled',)
+    list_filter = ('is_enabled',)
     search_fields = ('title',)
 
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Ingredient."""
-    ordering = ('title',)
+    list_display = ('title', 'weight', 'is_enabled')
+    ordering = ('-weight',)
+    list_filter = ('is_enabled',)
     search_fields = ('title',)
 
 

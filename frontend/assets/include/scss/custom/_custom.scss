@@ -1,12 +1,32 @@
 /* Add here all your css styles (customizations) */
-
 // Variables
 @import "custom.variables";
-
 // Mixins
 @import "custom.mixins";
 
-
 .g-bg-blue-gray {
   background-color: #343a40 !important;
+}
+
+.sidebar {
+  min-height: calc(100vh - 91px);
+
+  .nav-link {
+    color: #c0c0c0;
+    padding: .15rem 0;
+    margin-right: 1.5rem;
+    border-bottom-width: 2px;
+  }
+}
+
+.footer {
+  background-color: #2b2d2f;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.footer-second {
+  background-color: #17191b;
+  margin-left: -15px;
+  margin-right: -15px;
 }
