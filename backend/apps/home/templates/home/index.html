@@ -1,1 +1,16 @@
 {% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 mt-0 g-bg-dark-gray ">
+                {% include '_partials/sidebar.html' %}
+            </div>
+            <div class="col-md-10 g-pt-20">
+                Content <br>
+
+                {% include '_partials/footer.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

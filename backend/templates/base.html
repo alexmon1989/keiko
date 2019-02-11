@@ -18,7 +18,7 @@
 
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{% static "assets/bundles/styles.css" %}">
+    <link rel="stylesheet" href="{% static "bundles/styles.css" %}">
 </head>
 
 
@@ -52,7 +52,7 @@
 
                 <!-- Logo -->
                 <a href="/" class="navbar-brand">
-                    <img src="{% static 'assets/img/logo/logo.jpg' %}" alt="Image Description">
+                    <img src="{% static 'img/logo/logo.jpg' %}" alt="Image Description">
                 </a>
                 <!-- End Logo -->
 
@@ -77,20 +77,10 @@
     <!-- End Header -->
 
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 g-bg-blue-gray g-pt-20">
-                {% include '_partials/sidebar.html' %}
-            </div>
-            <div class="col-md-10 g-pt-20">
-                Content <br>
+    {% block content %}{% endblock %}
 
-                {% include '_partials/footer.html' %}
-            </div>
-        </div>
-    </div>
 </main>
 
-<script src="{% static "assets/bundles/app.js" %}"></script>
+<script src="{% static "bundles/app.js" %}"></script>
 </body>
 </html>

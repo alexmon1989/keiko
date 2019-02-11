@@ -10,6 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_editable = ('weight', 'is_enabled',)
     list_filter = ('is_enabled',)
     search_fields = ('title',)
+    prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(Product)
@@ -27,8 +28,10 @@ class IngredientAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Ingredient."""
     list_display = ('title', 'weight', 'is_enabled')
     ordering = ('-weight',)
+    list_editable = ('weight', 'is_enabled',)
     list_filter = ('is_enabled',)
     search_fields = ('title',)
+    prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(Property)
