@@ -30,12 +30,21 @@
 
 .footer {
   background-color: #2b2d2f;
-  margin-left: -15px;
-  margin-right: -15px;
 }
 
 .footer-second {
   background-color: #17191b;
-  margin-left: -15px;
-  margin-right: -15px;
+}
+
+.container-fluid {
+  .carousel-item::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .6);
+  }
 }

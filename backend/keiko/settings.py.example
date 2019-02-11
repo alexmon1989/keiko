@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'apps.home.apps.HomeConfig',
     'apps.core_app.apps.CoreAppConfig',
     'apps.shop.apps.ShopConfig',
+    'ckeditor_uploader',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,5 @@ AUTH_USER_MODEL = 'core_app.User'
 
 FRONTPAD_API_ADDR = 'https://app.frontpad.ru/api/index.php'
 FRONTPAD_API_SECRET = ''
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
