@@ -22,5 +22,6 @@ from apps.home.views import index
 urlpatterns = [
     path('', index),
     path('admin/', admin.site.urls),
+    path('shop/', include('apps.shop.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

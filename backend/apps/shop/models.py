@@ -14,6 +14,9 @@ class Category(TimeStampedModel):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('shop:category-detail', kwargs={'slug': self.slug})
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -50,9 +53,10 @@ class Ingredient(TimeStampedModel):
 class Product(TimeStampedModel):
     """Модель продукта."""
     title = models.CharField('Название', max_length=255)
-    categories = models.ManyToManyField(Category, verbose_name='Категории')
-    properties = models.ManyToManyField(Property, verbose_name='Свойства')
-    ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты')
+    image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 450px * 450px')
+    categories = models.ManyToManyField(Category, verbose_name='Категории', blank=True)
+    properties = models.ManyToManyField(Property, verbose_name='Свойства', blank=True)
+    ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты', blank=True)
     price = models.FloatField('Цена', blank=True, null=True)
     frontpad_id = models.PositiveIntegerField('id товара в системе Frontpad', null=True, blank=True)
     is_enabled = models.BooleanField('Включено', default=True)

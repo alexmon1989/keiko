@@ -31,11 +31,12 @@
             {% for category in categories %}
                 <div class="row sidebar__category">
                     <div class="col-4 px-0">
-                        <a href="#"><img src="{{ category.image.url }}" alt="{{ category }}" class="img-fluid"></a>
+                        <a href="{{ category.get_absolute_url }}"><img src="{{ category.image.url }}" alt="{{ category }}" class="img-fluid"></a>
                     </div>
                     <div class="col-8 px-0 align-self-center">
-                        <a href="#"
-                           class="g-color-white g-color-primary--hover g-text-underline--none--hover">{{ category }}</a>
+                        <a href="{{ category.get_absolute_url }}"
+                           class="g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if category.slug in request.path  %}active{% endif %}"
+                        >{{ category }}</a>
                     </div>
                 </div>
             {% endfor %}
