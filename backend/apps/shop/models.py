@@ -1,6 +1,7 @@
 from django.shortcuts import reverse
 from django.db import models
 from keiko.utils import TimeStampedModel
+from ckeditor.fields import RichTextField
 
 
 class Category(TimeStampedModel):
@@ -54,11 +55,15 @@ class Product(TimeStampedModel):
     """Модель продукта."""
     title = models.CharField('Название', max_length=255)
     image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 450px * 450px')
+    description = RichTextField('Описание', null=True, blank=True)
     categories = models.ManyToManyField(Category, verbose_name='Категории', blank=True)
     properties = models.ManyToManyField(Property, verbose_name='Свойства', blank=True)
     ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты', blank=True)
     price = models.FloatField('Цена', blank=True, null=True)
     frontpad_id = models.PositiveIntegerField('id товара в системе Frontpad', null=True, blank=True)
+    is_new = models.BooleanField('Новинка', default=False)
+    is_spicy = models.BooleanField('Острое', default=False)
+    is_hit = models.BooleanField('Хит', default=False)
     is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
