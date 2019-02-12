@@ -9,7 +9,7 @@
             data-target="nav-5-1-primary-hor-center" data-tabs-mobile-type="slide-up-down"
             data-btn-classes="btn btn-md btn-block u-btn-outline-primary">
             <li class="nav-item">
-                <a class="nav-link g-font-size-13 {% if 'category/' in request.path %}active{% endif %}"
+                <a class="nav-link g-font-size-13 {% if 'category/' in request.path %}active{% endif %}{% if not 'category/' in request.path and not 'ingredient/' in request.path %}active{% endif %}"
                    data-toggle="tab"
                    href="#nav-5-1-primary-hor-center--1"
                    role="tab">Категории</a>
@@ -26,7 +26,7 @@
 
     <!-- Tab panes -->
     <div id="nav-5-1-primary-hor-center" class="tab-content">
-        <div class="tab-pane fade show active" id="nav-5-1-primary-hor-center--1" role="tabpanel">
+        <div class="tab-pane fade {% if 'category/' in request.path %}show active{% endif %}{% if not 'category/' in request.path and not 'ingredient/' in request.path %}show active{% endif %}" id="nav-5-1-primary-hor-center--1" role="tabpanel">
             {% categories as categories %}
             {% for category in categories %}
                 <div class="row sidebar__category no-gutters">
@@ -41,16 +41,17 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="tab-pane fade" id="nav-5-1-primary-hor-center--2" role="tabpanel">
+        <div class="tab-pane fade {% if 'ingredient/' in request.path %}show active{% endif %}" id="nav-5-1-primary-hor-center--2" role="tabpanel">
             {% ingredients as ingredients %}
             {% for ingredient in ingredients %}
-                <div class="row sidebar__category">
+                <div class="row sidebar__category no-gutters">
                     <div class="col-4 px-0">
-                        <img src="{{ ingredient.image.url }}" alt="{{ ingredient }}" class="img-fluid">
+                        <a href="{{ ingredient.get_absolute_url }}"><img src="{{ ingredient.image.url }}" alt="{{ ingredient }}" class="img-fluid"></a>
                     </div>
                     <div class="col-8 px-0 align-self-center">
-                        <a href="#"
-                           class="g-color-white g-color-primary--hover g-text-underline--none--hover">{{ ingredient }}</a>
+                        <a href="{{ ingredient.get_absolute_url }}"
+                           class="g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if ingredient.slug in request.path  %}active{% endif %}"
+                        >{{ ingredient }}</a>
                     </div>
                 </div>
             {% endfor %}

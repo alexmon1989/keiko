@@ -46,6 +46,9 @@ class Ingredient(TimeStampedModel):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('shop:ingredient-detail', kwargs={'slug': self.slug})
+
     class Meta:
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'

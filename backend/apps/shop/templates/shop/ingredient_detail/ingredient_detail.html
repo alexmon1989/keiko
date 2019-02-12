@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid g-px-0">
+        <div class="row no-gutters">
+            <div class="col-md-2 mt-0 g-bg-dark-gray ">
+                {% include '_partials/sidebar.html' %}
+            </div>
+            <div class="col-md-10 g-color-white">
+                <div class="g-pa-20">
+                    <h1>{{ ingredient.title }}</h1>
+                </div>
+
+                <div class="row g-mb-30 no-gutters">
+                    <div class="col">
+                        <div class="g-bg-gray-dark-v2 g-pt-20 g-px-20 g-pb-10">
+                            <p class="g-font-size-16">Сортировать по:&nbsp;&nbsp;<a href="#">Название</a>&nbsp;&nbsp;<a
+                                    href="#">Цена</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-mb-40 g-px-20 no-gutters">
+                    {% for product in products %}
+                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2dot4 g-pt-10 product">
+                            <div class="row no-gutters d-flex flex-column h-100">
+                                <div class="g-px-25 g-mt-15">
+                                    <a href="#">
+                                        <div class="markers">
+                                            {% if product.is_new %}
+                                                <img src="{% static 'img/markers/new.png' %}"
+                                                     alt=""
+                                                     class="pr-1"
+                                                     data-toggle="tooltip"
+                                                     data-placement="bottom"
+                                                     title="Новинка">
+                                            {% endif %}
+                                            {% if product.is_spicy %}
+                                                <img src="{% static 'img/markers/spicy.png' %}"
+                                                     alt=""
+                                                     class="pr-1"
+                                                     data-toggle="tooltip"
+                                                     data-placement="bottom"
+                                                     title="Острое">
+                                            {% endif %}
+                                            {% if product.is_hit %}
+                                                <img src="{% static 'img/markers/hit.png' %}"
+                                                     alt=""
+                                                     class="pr-1"
+                                                     data-toggle="tooltip"
+                                                     data-placement="bottom"
+                                                     title="Хит">
+                                            {% endif %}
+                                        </div>
+                                        {% if product.image %}
+                                            <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
+                                        {% else %}
+                                            <img src="https://via.placeholder.com/450x450.png?text=No+Image" alt="" class="img-fluid">
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                <div class="g-px-25 g-mt-15">
+                                    <h3 class="g-font-size-16"><a href="#" class="g-color-white g-color-primary--hover">{{ product }}</a></h3>
+                                </div>
+                                <div class="g-px-25 g-mt-15 g-mb-5 g-font-size-12 product__description text-justify">
+                                    {{ product.description|default_if_none:""|safe }}
+                                </div>
+                                <div class="g-mb-15 g-px-25 product__price mt-auto">
+                                    <div class="row">
+                                        <div class="col-8 d-flex align-items-center g-font-size-18">
+                                            <span>{{ product.price|floatformat:"0" }}</span> <span class="g-pl-5"><i class="fa fa-rub"></i></span>
+                                        </div>
+                                        <div class="col-4 d-flex justify-content-between align-items-center">
+                                            <div><a href="#"><i class="fa fa-minus"></i></a></div>
+                                            <div class="g-font-size-18">0</div>
+                                            <div><a href="#"><i class="fa fa-plus"></i></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% include '_partials/footer.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
