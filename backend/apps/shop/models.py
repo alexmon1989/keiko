@@ -57,8 +57,12 @@ class Ingredient(TimeStampedModel):
 class Product(TimeStampedModel):
     """Модель продукта."""
     title = models.CharField('Название', max_length=255)
+    slug = models.SlugField()
     image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 450px * 450px')
     description = RichTextField('Описание', null=True, blank=True)
+    primary_category = models.ForeignKey(Category, verbose_name='Первичная категория', blank=True, null=True,
+                                         on_delete=models.SET_NULL, related_name='primary_category',
+                                         help_text='Для блока "Хлебные крошки"')
     categories = models.ManyToManyField(Category, verbose_name='Категории', blank=True)
     properties = models.ManyToManyField(Property, verbose_name='Свойства', blank=True)
     ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты', blank=True)
@@ -71,6 +75,9 @@ class Product(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('shop:product-detail', kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = 'Продукт'

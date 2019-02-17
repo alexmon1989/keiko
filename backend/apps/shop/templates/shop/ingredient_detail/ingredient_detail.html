@@ -26,7 +26,7 @@
                         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2dot4 g-pt-10 product">
                             <div class="row no-gutters d-flex flex-column h-100">
                                 <div class="g-px-25 g-mt-15">
-                                    <a href="#">
+                                    <a href="{{ product.get_absolute_url }}">
                                         <div class="markers">
                                             {% if product.is_new %}
                                                 <img src="{% static 'img/markers/new.png' %}"
@@ -61,7 +61,7 @@
                                     </a>
                                 </div>
                                 <div class="g-px-25 g-mt-15">
-                                    <h3 class="g-font-size-16"><a href="#" class="g-color-white g-color-primary--hover">{{ product }}</a></h3>
+                                    <h3 class="g-font-size-16"><a href="{{ product.get_absolute_url }}" class="g-color-white g-color-primary--hover">{{ product }}</a></h3>
                                 </div>
                                 <div class="g-px-25 g-mt-15 g-mb-5 g-font-size-12 product__description text-justify">
                                     {{ product.description|default_if_none:""|safe }}

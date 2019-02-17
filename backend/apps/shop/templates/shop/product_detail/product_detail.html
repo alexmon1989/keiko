@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid g-px-0">
+        <div class="row no-gutters">
+            <div class="col-md-2 mt-0 g-bg-dark-gray ">
+                {% include '_partials/sidebar.html' %}
+            </div>
+            <div class="col-md-10 g-color-white product-detail">
+
+                {% include 'shop/product_detail/_partials/breadcrumbs.html' %}
+
+                <div class="row py-3 no-gutters g-mb-40">
+                    <div class="d-flex justify-content-center col-md-6">
+                        <a href="{{ product.get_absolute_url }}">
+                            <div class="g-pos-abs">
+                                {% if product.is_new %}
+                                    <img src="{% static 'img/markers/new.png' %}"
+                                         alt=""
+                                         class="pr-1"
+                                         data-toggle="tooltip"
+                                         data-placement="bottom"
+                                         title="Новинка">
+                                {% endif %}
+                                {% if product.is_spicy %}
+                                    <img src="{% static 'img/markers/spicy.png' %}"
+                                         alt=""
+                                         class="pr-1"
+                                         data-toggle="tooltip"
+                                         data-placement="bottom"
+                                         title="Острое">
+                                {% endif %}
+                                {% if product.is_hit %}
+                                    <img src="{% static 'img/markers/hit.png' %}"
+                                         alt=""
+                                         class="pr-1"
+                                         data-toggle="tooltip"
+                                         data-placement="bottom"
+                                         title="Хит">
+                                {% endif %}
+                            </div>
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
+                            {% else %}
+                                <img src="https://via.placeholder.com/450x450.png?text=No+Image" alt=""
+                                     class="img-fluid">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="col-md-6 g-px-15">
+                        <h1 class="pt-2 g-pt-0--md">{{ product.title }}</h1>
+
+                        <div class="g-pt-20 g-font-size-24">
+                            <span>{{ product.price|floatformat:"0" }}</span><span class="g-pl-5"><i
+                                class="fa fa-rub"></i></span>
+                        </div>
+
+                        <div class="g-pt-5 d-flex g-mb-50 align-items-center">
+                            <div class="pr-3"><a href="#"><i class="fa fa-minus"></i></a></div>
+                            <div class="g-font-size-18 pr-3">0</div>
+                            <div><a href="#"><i class="fa fa-plus"></i></a></div>
+                        </div>
+
+                        <hr class="g-brd-gray-dark-v3">
+
+                        <!-- Nav tabs -->
+                        <ul class="nav u-nav-v5-1 u-nav-primary g-font-size-18" role="tablist"
+                            data-target="nav-5-1-accordion-primary-hor-center" data-tabs-mobile-type="accordion"
+                            data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab"
+                                   href="#nav-5-1-accordion-primary-hor-center--1" role="tab">Описание</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#nav-5-1-accordion-primary-hor-center--2"
+                                   role="tab">Поделиться</a>
+                            </li>
+                        </ul>
+                        <!-- End Nav tabs -->
+
+                        <!-- Tab panes -->
+                        <div id="nav-5-1-accordion-primary-hor-center" class="tab-content g-pt-20--md">
+                            <div class="tab-pane fade show active" id="nav-5-1-accordion-primary-hor-center--1"
+                                 role="tabpanel">
+                                {{ product.description|safe }}
+
+                                {% for property in product.properties.all %}
+                                    <span class="badge g-bg-gray-dark-v2 g-pa-5 g-mr-5 g-mt-5 g-color-white-opacity-0_8">{{ property }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="tab-pane fade" id="nav-5-1-accordion-primary-hor-center--2" role="tabpanel">
+                                <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                                <script src="//yastatic.net/share2/share.js"></script>
+                                <div class="ya-share2 pt-1" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter"></div>
+                            </div>
+                        </div>
+                        <!-- End Tab panes -->
+                    </div>
+                </div>
+
+                <div class="row no-gutters g-mb-30">
+                    <div class="col-12 g-px-15">
+                        <h3>С этим блюдом заказывают</h3>
+                    </div>
+                </div>
+
+                {% include '_partials/footer.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

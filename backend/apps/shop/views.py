@@ -1,5 +1,5 @@
 from django.views.generic.detail import DetailView
-from .models import Category, Ingredient
+from .models import Category, Ingredient, Product
 
 
 class CategoryDetailView(DetailView):
@@ -24,3 +24,9 @@ class IngredientDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['products'] = self.object.product_set.filter(is_enabled=True).all()
         return context
+
+
+class ProductDetailView(DetailView):
+    """Страница продукта."""
+    queryset = Product.objects.filter(is_enabled=True)
+    template_name = 'shop/product_detail/product_detail.html'

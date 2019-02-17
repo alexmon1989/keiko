@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-8 px-0 align-self-center">
                         <a href="{{ category.get_absolute_url }}"
-                           class="g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if category.slug in request.path  %}active{% endif %}"
+                           class="g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if product.primary_category.pk == category.pk or category.slug in request.path %}active{% endif %}"
                         >{{ category }}</a>
                     </div>
                 </div>

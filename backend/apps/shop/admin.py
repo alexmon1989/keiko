@@ -21,6 +21,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ('is_enabled',)
     list_filter = ('is_enabled',)
     search_fields = ('title',)
+    prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(Ingredient)
