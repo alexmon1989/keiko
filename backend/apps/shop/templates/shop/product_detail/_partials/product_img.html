@@ -30,7 +30,7 @@
     {% if product.image %}
         <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
     {% else %}
-        <img src="https://via.placeholder.com/450x450.png?text=No+Image" alt=""
+        <img src="{% static 'img/no-image.png' %}" alt=""
              class="img-fluid">
     {% endif %}
 </div>

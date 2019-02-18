@@ -56,7 +56,7 @@
                                         {% if product.image %}
                                             <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
                                         {% else %}
-                                            <img src="https://via.placeholder.com/450x450.png?text=No+Image" alt="" class="img-fluid">
+                                            <img src="{% static 'img/no-image.png' %}" alt="" class="img-fluid">
                                         {% endif %}
                                     </a>
                                 </div>
@@ -71,10 +71,8 @@
                                         <div class="col-8 d-flex align-items-center g-font-size-18">
                                             <span>{{ product.price|floatformat:"0" }}</span> <span class="g-pl-5"><i class="fa fa-rub"></i></span>
                                         </div>
-                                        <div class="col-4 d-flex justify-content-between align-items-center">
-                                            <div><a href="#"><i class="fa fa-minus"></i></a></div>
-                                            <div class="g-font-size-18">0</div>
-                                            <div><a href="#"><i class="fa fa-plus"></i></a></div>
+                                        <div class="col-4">
+                                            <cart-actions :product="{{ product.get_cart_data }}" :cart="cart" />
                                         </div>
                                     </div>
                                 </div>

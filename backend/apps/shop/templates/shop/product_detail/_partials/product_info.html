@@ -5,10 +5,8 @@
         class="fa fa-rub"></i></span>
 </div>
 
-<div class="g-pt-5 d-flex g-mb-50 align-items-center">
-    <div class="pr-3"><a href="#"><i class="fa fa-minus"></i></a></div>
-    <div class="g-font-size-18 pr-3">0</div>
-    <div><a href="#"><i class="fa fa-plus"></i></a></div>
+<div class="g-pt-5 d-flex g-mb-50 g-width-100">
+    <cart-actions :product="{{ product.get_cart_data }}" :cart="cart" />
 </div>
 
 <hr class="g-brd-gray-dark-v3">

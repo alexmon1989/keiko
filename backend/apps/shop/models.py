@@ -2,6 +2,7 @@ from django.shortcuts import reverse
 from django.db import models
 from keiko.utils import TimeStampedModel
 from ckeditor.fields import RichTextField
+import json
 
 
 class Category(TimeStampedModel):
@@ -80,6 +81,19 @@ class Product(TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse('shop:product-detail', kwargs={'slug': self.slug})
+
+    def get_cart_data(self):
+        res = {
+            'id': self.pk,
+            'title': self.title,
+            'link': reverse('shop:product-detail', kwargs={'slug': self.slug}),
+            'price': self.price
+        }
+        if self.image:
+            res['img'] = self.image.url
+        else:
+            res['img'] = '/static/img/no-image.png'
+        return json.dumps(res)
 
     class Meta:
         verbose_name = 'Продукт'
