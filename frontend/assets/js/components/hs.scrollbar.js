@@ -18,7 +18,7 @@
      */
     _baseConfig: {
       scrollInertia: 150,
-      theme: 'minimal-dark'
+      theme: 'minimal'
     },
 
     /**

@@ -13,18 +13,18 @@
            data-dropdown-hide-on-scroll="false"
            data-dropdown-animation-in="fadeIn"
            data-dropdown-animation-out="fadeOut">
-            <span class="u-badge-v1--sm g-color-white g-bg-primary g-rounded-50x">{{ countProducts }}</span>
+            <span class="u-badge-v1--sm g-color-white-opacity-0_8 g-bg-primary g-rounded-50x">{{ countProducts }}</span>
             <i class="fa fa-shopping-cart"></i>
         </a>
 
         <div id="basket-bar"
-             v-if="countProducts > 0"
-             class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-brd-top g-brd-2 g-brd-primary g-color-main g-mt-25--lg g-mt-15--lg--scrolling"
+             v-show="cart.length > 0"
+             class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-brd-top g-brd-2 g-brd-primary g-color-white-opacity-0_8 g-mt-25--lg g-mt-15--lg--scrolling g-bg-gray-dark-v2"
              aria-labelledby="basket-bar-invoker">
             <div class="js-scrollbar g-height-280">
 
                 <!-- Product -->
-                <div class="u-basket__product" v-for="(item) in cartItems">
+                <div class="u-basket__product" v-for="(item) in cart">
                     <div class="row align-items-center no-gutters">
                         <div class="col-4 g-pr-20">
                             <a :href="item.link" class="u-basket__product-img">
@@ -35,13 +35,13 @@
                         <div class="col-8">
                             <h6 class="g-font-weight-600 g-mb-0">
                                 <a :href="item.link"
-                                   class="g-color-main g-color-main--hover g-text-underline--none--hover">{{ item.title }}</a>
+                                   class="g-color-white g-color-white-opacity-0_5--hover g-text-underline--none--hover">{{ item.title }}</a>
                             </h6>
                             <small class="g-color-gray-dark-v5 g-font-size-14">{{ item.count }} x {{ item.price }} <i
                                     class="fa fa-rub"></i></small>
                         </div>
                     </div>
-                    <button class="u-basket__product-remove" type="button">&times;</button>
+                    <button class="u-basket__product-remove g-color-white-opacity-0_9" type="button" @click="remove(item)">&times;</button>
                 </div>
                 <!-- End Product -->
             </div>
@@ -61,22 +61,26 @@
 </template>
 
 <script>
+    import EventBus from '../event-bus.js'
+
     export default {
         name: "Cart",
         props: ["cart"],
-        data: function () {
-            return {cartItems: this.cart}
-        },
         computed: {
             total() {
-                return this.cartItems.reduce((total, i) => {
+                return this.cart.reduce((total, i) => {
                     return total + i.price * i.count
                 }, 0)
             },
             countProducts() {
-                return this.cartItems.reduce((total, i) => {
+                return this.cart.reduce((total, i) => {
                     return total + i.count
                 }, 0)
+            }
+        },
+        methods: {
+            remove(item) {
+                EventBus.$emit('REMOVE-CART-ITEM', item);
             }
         }
     }

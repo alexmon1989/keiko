@@ -7,16 +7,15 @@
 </template>
 
 <script>
+    import EventBus from '../event-bus.js'
+
     export default {
         name: "CartActions",
         props: ["product", "cart"],
-        data: function () {
-            return {cartItems: this.cart}
-        },
         computed: {
             total() {
                 let self = this;
-                let res = this.cartItems.find(x => x.id === self.product.id);
+                let res = this.cart.find(x => x.id === self.product.id);
                 if (res) {
                     return res.count;
                 }
@@ -25,27 +24,10 @@
         },
         methods: {
             decrease() {
-                let self = this;
-                let res = this.cartItems.find(x => x.id === self.product.id);
-                if (res) {
-                    res.count--;
-                    if (res.count === 0) {
-                        let index = this.cartItems.indexOf(res);
-                        if (index > -1) {
-                          this.cartItems.splice(index, 1);
-                        }
-                    }
-                }
+                EventBus.$emit('DECREASE-CART-ITEM', this.product);
             },
             increase() {
-                let self = this;
-                let res = this.cartItems.find(x => x.id === self.product.id);
-                if (res) {
-                    res.count++;
-                } else {
-                    this.cartItems.push(this.product);
-                    this.cartItems[this.cartItems.length - 1].count = 1;
-                }
+                EventBus.$emit('INCREASE-CART-ITEM', this.product);
             },
         }
     }

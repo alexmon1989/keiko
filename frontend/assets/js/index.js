@@ -10,6 +10,7 @@ window.$ = window.jQuery = require('jquery');
 
 import Cart from './vue-components/Cart.vue';
 import CartActions from './vue-components/CartActions.vue';
+import EventBus from './event-bus.js'
 
 new Vue({
     el: '#app',
@@ -18,24 +19,7 @@ new Vue({
         CartActions
     },
     data: {
-        cart: [
-            {
-                'id': 1,
-                'title': 'Title',
-                'link': 'link',
-                'img': '/static/img-temp/150x150/img1.jpg',
-                'price': 1000,
-                'count': 2,
-            },
-            {
-                'id': 251,
-                'title': 'Title 2',
-                'link': 'link2',
-                'img': '/static/img-temp/150x150/img1.jpg',
-                'price': 2000,
-                'count': 3,
-            }
-        ]
+        cart: []
     },
     mounted() {
         if (localStorage.getItem('cart')) {
@@ -44,6 +28,55 @@ new Vue({
             } catch (e) {
                 localStorage.removeItem('cart');
             }
+        }
+
+        EventBus.$on('DECREASE-CART-ITEM', product => {
+            let res = this.cart.find(x => x.id === product.id);
+            if (res) {
+                res.count--;
+                if (res.count === 0) {
+                    let index = this.cart.indexOf(res);
+                    if (index > -1) {
+                      this.cart.splice(index, 1);
+                    }
+                }
+            }
+            this.saveCart();
+            this.$nextTick(function () {
+                $.HSCore.components.HSScrollBar.destroy($('.js-scrollbar'));
+                $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+            })
+        });
+
+        EventBus.$on('INCREASE-CART-ITEM', product => {
+            let res = this.cart.find(x => x.id === product.id);
+            if (res) {
+                res.count++;
+            } else {
+                product.count = 1;
+                this.cart.push(product);
+            }
+            this.saveCart();
+            this.$nextTick(function () {
+                $.HSCore.components.HSScrollBar.destroy($('.js-scrollbar'));
+                $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+            })
+        });
+
+        EventBus.$on('REMOVE-CART-ITEM', item => {
+            this.cart.splice(this.cart.indexOf(item), 1);
+            this.saveCart();
+            this.$nextTick(function () {
+                $.HSCore.components.HSScrollBar.destroy($('.js-scrollbar'));
+                $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+            })
+        });
+    },
+
+    methods: {
+        saveCart() {
+          const parsed = JSON.stringify(this.cart);
+          localStorage.setItem('cart', parsed);
         }
     }
 });
