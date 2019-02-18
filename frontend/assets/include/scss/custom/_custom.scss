@@ -117,6 +117,18 @@
   }
 }
 
+.related-product {
+  border: 1px solid #44474a;
+
+  &:hover {
+    border: 1px solid $g-color-primary;
+  }
+
+  .markers {
+    position: absolute;
+  }
+}
+
 
 .product-detail {
   .nav-link {

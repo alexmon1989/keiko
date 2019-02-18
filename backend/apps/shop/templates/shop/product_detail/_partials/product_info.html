@@ -1,0 +1,45 @@
+<h1 class="pt-4 g-pt-0--md">{{ product.title }}</h1>
+
+<div class="g-pt-20 g-font-size-24">
+    <span>{{ product.price|floatformat:"0" }}</span><span class="g-pl-5"><i
+        class="fa fa-rub"></i></span>
+</div>
+
+<div class="g-pt-5 d-flex g-mb-50 align-items-center">
+    <div class="pr-3"><a href="#"><i class="fa fa-minus"></i></a></div>
+    <div class="g-font-size-18 pr-3">0</div>
+    <div><a href="#"><i class="fa fa-plus"></i></a></div>
+</div>
+
+<hr class="g-brd-gray-dark-v3">
+
+<!-- Nav tabs -->
+<ul class="nav u-nav-v5-1 u-nav-primary g-font-size-18" role="tablist"
+    data-target="nav-5-1-accordion-primary-hor-center" data-tabs-mobile-type="accordion"
+    data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab"
+           href="#nav-5-1-accordion-primary-hor-center--1" role="tab">Описание</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#nav-5-1-accordion-primary-hor-center--2"
+           role="tab">Поделиться</a>
+    </li>
+</ul>
+<!-- End Nav tabs -->
+
+<!-- Tab panes -->
+<div id="nav-5-1-accordion-primary-hor-center" class="tab-content g-pt-20--md">
+    <div class="tab-pane fade show active g-mb-20" id="nav-5-1-accordion-primary-hor-center--1"
+         role="tabpanel">
+        {{ product.description|safe }}
+
+        {% for property in product.properties.all %}
+            <span class="badge g-bg-gray-dark-v2 g-pa-5 g-mr-5 g-mt-5 g-color-white-opacity-0_8">{{ property }}</span>
+        {% endfor %}
+    </div>
+    <div class="tab-pane fade g-mb-20" id="nav-5-1-accordion-primary-hor-center--2" role="tabpanel">
+        <div class="ya-share2 pt-1" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter"></div>
+    </div>
+</div>
+<!-- End Tab panes -->

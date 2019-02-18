@@ -2,21 +2,33 @@
 import '../vendor/bootstrap/bootstrap.min.css';
 import '../vendor/icon-awesome/scss/font-awesome.scss';
 import '../vendor/hamburgers/hamburgers.min.css';
+import '../vendor/fancybox/jquery.fancybox.min.css';
+import '../vendor/slick-carousel/slick/slick.css';
 import '../include/scss/unify.scss'
 import '../include/scss/custom.scss'
 
 // Scripts
 import '../vendor/jquery-migrate/jquery-migrate.min.js';
 import '../vendor/bootstrap/bootstrap.min.js';
+import '../vendor/fancybox/jquery.fancybox.min.js';
+import '../vendor/slick-carousel/slick/slick.js';
 
 import './hs.core.js';
 import './components/hs.header.js';
 import './components/hs.scrollbar.js';
 import './helpers/hs.hamburgers.js';
 import './components/hs.tabs.js';
+import './components/hs.popup.js';
+import './components/hs.carousel.js';
 
 // JS Plugins Init
 $(document).on('ready', function () {
+    // initialization of popups
+    $.HSCore.components.HSPopup.init('.js-fancybox');
+
+    // initialization of carousel
+    $.HSCore.components.HSCarousel.init('.js-carousel');
+
     // initialization of tabs
     $.HSCore.components.HSTabs.init('[role="tablist"]');
 });

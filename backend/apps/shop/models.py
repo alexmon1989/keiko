@@ -67,6 +67,8 @@ class Product(TimeStampedModel):
     properties = models.ManyToManyField(Property, verbose_name='Свойства', blank=True)
     ingredients = models.ManyToManyField(Ingredient, verbose_name='Ингредиенты', blank=True)
     price = models.FloatField('Цена', blank=True, null=True)
+    related_products = models.ManyToManyField('Product', verbose_name='Связанные продукты', blank=True,
+                                              help_text='Для блока "С этим продуктом часто покупают"')
     frontpad_id = models.PositiveIntegerField('id товара в системе Frontpad', null=True, blank=True)
     is_new = models.BooleanField('Новинка', default=False)
     is_spicy = models.BooleanField('Острое', default=False)

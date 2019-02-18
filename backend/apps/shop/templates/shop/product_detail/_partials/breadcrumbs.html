@@ -1,5 +1,7 @@
 <div class="mt-5 mb-5 py-4 breadcrumbs d-flex justify-content-end col-12">
     <div><a href="/" class="nuxt-link-active">Главная</a><i class="px-2">/</i></div>
-    <div><a href="{{ product.primary_category.get_absolute_url }}">{{ product.primary_category }}</a><i class="px-2">/</i></div>
+    {% if product.primary_category %}
+        <div><a href="{{ product.primary_category.get_absolute_url }}">{{ product.primary_category }}</a><i class="px-2">/</i></div>
+    {% endif %}
     <div>{{ product.title }}</div>
 </div>
