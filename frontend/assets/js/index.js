@@ -10,13 +10,15 @@ window.$ = window.jQuery = require('jquery');
 
 import Cart from './vue-components/Cart.vue';
 import CartActions from './vue-components/CartActions.vue';
+import Order from './vue-components/Order.vue';
 import EventBus from './event-bus.js'
 
 new Vue({
     el: '#app',
     components: {
         Cart,
-        CartActions
+        CartActions,
+        Order
     },
     data: {
         cart: []

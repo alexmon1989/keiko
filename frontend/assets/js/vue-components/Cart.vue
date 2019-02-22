@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center g-font-size-18">
-                    <a href="#!" class="btn btn-md u-btn-outline-primary">Перейти в корзину</a>
+                    <a href="/shop/cart/" class="btn btn-md u-btn-outline-primary">Перейти в корзину</a>
                 </div>
             </div>
         </div>

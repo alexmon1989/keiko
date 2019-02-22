@@ -1,4 +1,5 @@
 from django.views.generic.detail import DetailView
+from django.views.generic.base import TemplateView
 from .models import Category, Ingredient, Product
 
 
@@ -30,3 +31,8 @@ class ProductDetailView(DetailView):
     """Страница продукта."""
     queryset = Product.objects.filter(is_enabled=True)
     template_name = 'shop/product_detail/product_detail.html'
+
+
+class CartView(TemplateView):
+    """Страница корзины."""
+    template_name = 'shop/cart/cart_detail.html'
