@@ -24,7 +24,7 @@
             <div class="js-scrollbar g-height-280">
 
                 <!-- Product -->
-                <div class="u-basket__product" v-for="(item) in cart">
+                <div class="u-basket__product g-brd-white-opacity-0_5" v-for="(item) in cart">
                     <div class="row align-items-center no-gutters">
                         <div class="col-4 g-pr-20">
                             <a :href="item.link" class="u-basket__product-img">
@@ -46,14 +46,14 @@
                 <!-- End Product -->
             </div>
 
-            <div class="g-brd-top g-brd-gray-light-v4 g-pa-15 g-pb-20">
+            <div class="g-brd-top g-brd-white-opacity-0_5 g-pa-15 g-pb-20">
                 <div class="d-flex flex-row align-items-center justify-content-between g-letter-spacing-1 g-font-size-16 g-mb-15">
                     <strong class="text-uppercase g-font-weight-600">Общая сумма</strong>
                     <strong class="g-color-primary g-font-weight-600">{{ total }} <i class="fa fa-rub"></i></strong>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center g-font-size-18">
-                    <a href="#!" class="btn u-btn-primary rounded-0">Перейти в корзину</a>
+                    <a href="#!" class="btn btn-md u-btn-outline-primary">Перейти в корзину</a>
                 </div>
             </div>
         </div>
