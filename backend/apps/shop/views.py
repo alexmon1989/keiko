@@ -1,5 +1,6 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
+from django.views.decorators.http import require_POST
 from .models import Category, Ingredient, Product
 
 
@@ -36,3 +37,11 @@ class ProductDetailView(DetailView):
 class CartView(TemplateView):
     """Страница корзины."""
     template_name = 'shop/cart/cart_detail.html'
+
+
+@require_POST
+def order(request):
+    import json
+    data = json.loads(request.body.decode('utf-8'))
+    print(data)
+    pass

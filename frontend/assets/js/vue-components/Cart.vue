@@ -13,7 +13,7 @@
            data-dropdown-hide-on-scroll="false"
            data-dropdown-animation-in="fadeIn"
            data-dropdown-animation-out="fadeOut">
-            <span class="u-badge-v1--sm g-color-white-opacity-0_8 g-bg-primary g-rounded-50x">{{ countProducts }}</span>
+            <span class="u-badge-v1--sm g-color-white g-bg-primary g-rounded-50x">{{ countProducts }}</span>
             <i class="fa fa-shopping-cart"></i>
         </a>
 

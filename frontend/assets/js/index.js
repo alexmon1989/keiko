@@ -2,9 +2,11 @@
 import './template.js';
 import Vue from 'vue';
 
-import VeeValidate from 'vee-validate';
+import ru from 'vee-validate/dist/locale/ru';
+import VeeValidate, { Validator } from 'vee-validate';
 
 Vue.use(VeeValidate);
+Validator.localize('ru', ru);
 
 window.$ = window.jQuery = require('jquery');
 
