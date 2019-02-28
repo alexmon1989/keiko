@@ -1,4 +1,5 @@
 {% load shop_extras %}
+{% load staticfiles %}
 
 <div class="sidebar g-color-white">
     <div class="row no-gutters g-py-20 g-bg-blue-gray">
@@ -31,7 +32,13 @@
             {% for category in categories %}
                 <div class="row sidebar__category no-gutters">
                     <div class="col-4 px-0">
-                        <a href="{{ category.get_absolute_url }}"><img src="{{ category.image.url }}" alt="{{ category }}" class="img-fluid"></a>
+                        <a href="{{ category.get_absolute_url }}">
+                            {% if category.image %}
+                                <img src="{{ category.image.url }}" alt="{{ category }}" class="img-fluid">
+                            {% else %}
+                                <img src="{% static 'img/no-image-sidebar.png' %}" alt="" class="img-fluid">
+                            {% endif %}
+                        </a>
                     </div>
                     <div class="col-8 px-0 align-self-center">
                         <a href="{{ category.get_absolute_url }}"
@@ -46,7 +53,13 @@
             {% for ingredient in ingredients %}
                 <div class="row sidebar__category no-gutters">
                     <div class="col-4 px-0">
-                        <a href="{{ ingredient.get_absolute_url }}"><img src="{{ ingredient.image.url }}" alt="{{ ingredient }}" class="img-fluid"></a>
+                        <a href="{{ ingredient.get_absolute_url }}">
+                            {% if ingredient.image %}
+                                <img src="{{ ingredient.image.url }}" alt="{{ ingredient }}" class="img-fluid">
+                            {% else %}
+                                <img src="{% static 'img/no-image-sidebar.png' %}" alt="" class="img-fluid">
+                            {% endif %}
+                        </a>
                     </div>
                     <div class="col-8 px-0 align-self-center">
                         <a href="{{ ingredient.get_absolute_url }}"
