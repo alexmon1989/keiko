@@ -3,6 +3,7 @@ from django.db import models
 from keiko.utils import TimeStampedModel
 from ckeditor.fields import RichTextField
 import json
+import uuid
 
 
 class Category(TimeStampedModel):
@@ -98,3 +99,62 @@ class Product(TimeStampedModel):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+
+
+class CartProduct(TimeStampedModel):
+    """Модель товара в корзине"""
+    order = models.ForeignKey('Order', verbose_name='Заказ', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', verbose_name='Продукт', on_delete=models.SET_NULL, null=True, blank=True)
+    price = models.PositiveIntegerField('Цена')
+    count = models.PositiveIntegerField('Количество')
+
+    def __str__(self):
+        if self.product:
+            return self.product.title
+        return 'Удалённый продукт'
+
+
+class Order(TimeStampedModel):
+    """Модель заказа."""
+    unique_id = models.UUIDField('Уникальный идентификатор', default=uuid.uuid4, editable=False, unique=True)
+    delivery_mode = models.CharField(
+        'Способ доставки',
+        max_length=255,
+        choices=(('self', 'Самовывоз'), ('courier', 'Доставка курьером'))
+    )
+    pay_mode = models.CharField(
+        'Метод оплаты',
+        max_length=255,
+        choices=(('cash', 'Наличными'),)
+    )
+    user_name = models.CharField('Имя клиента', max_length=255, null=True, blank=True)
+    user_email = models.EmailField('E-Mail клиента', max_length=255, null=True, blank=True)
+    user_phone = models.CharField('Телефон клиента', max_length=255, null=True, blank=True)
+    user_address = models.CharField('Адрес доставки', max_length=255, null=True, blank=True)
+    user_comment = models.TextField('Комментарий пользователя', null=True, blank=True)
+    status = models.PositiveIntegerField(
+        'Статус заказа',
+        choices=((1, 'Создан'), (2, 'Передан в службу доставки'), (3, 'Выдан')),
+        default=1
+    )
+
+    def __str__(self):
+        return f"Заказ №{self.pk}"
+
+    def get_products_price_total(self):
+        """Возвращает стоимость товаров в корзине."""
+        s = 0
+        for p in self.cartproduct_set.all():
+            s += p.price * p.count
+        return s
+
+    def get_price_total(self):
+        """Возвращает стоимость заказа."""
+        s = self.get_products_price_total()
+        if self.delivery_mode == 'courier':
+            s += 100
+        return s
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'

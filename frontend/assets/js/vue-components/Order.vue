@@ -80,6 +80,7 @@
                            class="form-control rounded-0 form-control-md"
                            id="username"
                            name="username"
+                           v-model="username"
                            v-validate="'required'"
                            data-vv-as="Имя"
                            placeholder="Введите ваше имя">
@@ -153,7 +154,7 @@
                         <div class="u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
                             <i class="fa" data-check-icon=""></i>
                         </div>
-                        Я согласен с условиями использования&nbsp;<a href="#">персональных данных</a>&nbsp;*
+                        Я согласен с условиями использования&nbsp;<a href="#modal1" data-modal-target="#modal1" data-modal-effect="fadein">персональных данных</a>&nbsp;*
                     </label>
                     <!-- End Checkboxes Option 2 -->
                     <br>
@@ -164,6 +165,7 @@
             <div class="row">
                 <div class="col-12">
                     <a href="#!"
+                       :class="{'disabled': cart.length === 0}"
                        class="btn btn-md u-btn-lightred g-mr-10 g-mb-15 g-font-size-16"
                        @click.prevent="handleSubmit">Заказать</a>
                 </div>
@@ -175,6 +177,7 @@
 <script>
     import axios from 'axios';
     import CartActions from './CartActions.vue';
+    import EventBus from '../event-bus.js'
 
     export default {
         name: "Order",
@@ -190,7 +193,8 @@
                 userphone: '',
                 useremail: '',
                 useraddress: '',
-                usercomment: ''
+                usercomment: '',
+                terms: ''
             }
         },
         computed: {
@@ -222,24 +226,28 @@
         methods: {
             handleSubmit(e) {
                 this.$validator.validate().then(valid => {
-                    axios.defaults.xsrfCookieName = 'csrftoken';
-                    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-                    axios.post('/shop/order', {
-                        deliveryMode: this.deliveryMode,
-                        payMode: this.payMode,
-                        username: this.username,
-                        userphone: this.userphone,
-                        useremail: this.useremail,
-                        useraddress: this.useraddress,
-                        usercomment: this.usercomment,
-                        total: this.total,
-                        orderSum: this.orderSum,
-                        cart: this.cart
-                    })
-                    .then(response => {})
-                    .catch(e => {
-                        this.errors.push(e)
-                    })
+                    if (valid) {
+                        axios.defaults.xsrfCookieName = 'csrftoken';
+                        axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+                        axios.post('/shop/create-order', {
+                            deliveryMode: this.deliveryMode,
+                            payMode: this.payMode,
+                            username: this.username,
+                            userphone: this.userphone,
+                            useremail: this.useremail,
+                            useraddress: this.useraddress,
+                            usercomment: this.usercomment,
+                            total: this.total,
+                            orderSum: this.orderSum,
+                            cart: this.cart
+                        })
+                            .then(response => {
+                                EventBus.$emit('CLEAN-CART', location.href = '/shop/order-detail/' + response.data.unique_id);
+                            })
+                            .catch(e => {
+                                this.errors.push(e);
+                            })
+                    }
                 });
             }
         }

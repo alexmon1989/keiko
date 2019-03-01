@@ -130,7 +130,7 @@
 }
 
 
-.product-detail {
+.product-detail, .order-detail {
   .nav-link {
     color: #c0c0c0;
     padding: .15rem 0;
@@ -139,6 +139,6 @@
   }
 
   .breadcrumbs {
-    background-color: #1f1f1f;
+    background-color: #292929;
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="u-basket d-inline-block g-valign-middle g-pt-6 g-ml-30 g-ml-0--lg g-pos-abs g-top-12 g-right-65 g-pos-rel--lg g-top-0--lg g-right-0--lg">
-        <a href="#!"
+        <a href="/shop/cart/"
            id="basket-bar-invoker"
            class="u-icon-v1 g-color-white-opacity-0_8 g-color-white--hover g-text-underline--none--hover g-width-20 g-height-20"
            aria-controls="basket-bar"

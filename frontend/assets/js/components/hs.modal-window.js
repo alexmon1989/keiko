@@ -73,7 +73,6 @@
 		 * @return jQuery collection
 		 */
 		initBaseModalWindows: function(collection, config){
-
 			return collection.on('click', function(e){
 
 				if(!('Custombox' in window)) return;

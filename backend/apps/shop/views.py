@@ -1,7 +1,10 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
 from django.views.decorators.http import require_POST
-from .models import Category, Ingredient, Product
+from django.http import JsonResponse
+from django.contrib import messages
+from .models import Category, Ingredient, Product, Order, CartProduct
+import json
 
 
 class CategoryDetailView(DetailView):
@@ -40,8 +43,44 @@ class CartView(TemplateView):
 
 
 @require_POST
-def order(request):
-    import json
+def create_order(request):
+    """Обрабатывает запрос на заказ."""
+    # Получение данных запроса
     data = json.loads(request.body.decode('utf-8'))
-    print(data)
-    pass
+
+    # Создание заказа
+    o = Order(
+        delivery_mode=data.get('deliveryMode', None),
+        pay_mode=data.get('payMode', None),
+        user_name=data.get('username', None),
+        user_phone=data.get('userphone', None),
+        user_email=data.get('useremail', None),
+        user_address=data.get('useraddress', None),
+        user_comment=data.get('usercomment', None),
+    )
+    o.save()
+    for product in data.get('cart', []):
+        c_p = CartProduct(
+            order=o,
+            product_id=product['id'],
+            price=product['price'],
+            count=product['count'],
+        )
+        c_p.save()
+
+    # Сообщение об успехе
+    messages.add_message(request, messages.SUCCESS, 'Заказ успешно создан. Менеджер свяжется с вами в ближайшее время.')
+
+    # Ответ
+    return JsonResponse({
+        'success': 1,
+        'unique_id': o.unique_id
+    })
+
+
+class OrderDetailView(DetailView):
+    """Страница заказа."""
+    model = Order
+    template_name = 'shop/order_detail/order_detail.html'
+    slug_url_kwarg = 'unique_id'
+    slug_field = 'unique_id'

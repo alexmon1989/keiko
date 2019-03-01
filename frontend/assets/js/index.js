@@ -75,6 +75,11 @@ new Vue({
                 $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
             })
         });
+
+        EventBus.$on('CLEAN-CART', () => {
+            this.cart = [];
+            this.saveCart();
+        });
     },
 
     methods: {

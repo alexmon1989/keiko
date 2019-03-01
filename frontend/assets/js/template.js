@@ -6,6 +6,8 @@ import '../vendor/animate.css';
 import '../vendor/fancybox/jquery.fancybox.min.css';
 import '../vendor/slick-carousel/slick/slick.css';
 import '../vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css';
+import '../vendor/animate.css';
+import '../vendor/custombox/custombox.min.css';
 import '../include/scss/unify.scss'
 import '../include/scss/custom.scss'
 
@@ -15,6 +17,7 @@ import '../vendor/bootstrap/bootstrap.min.js';
 import '../vendor/fancybox/jquery.fancybox.min.js';
 import '../vendor/slick-carousel/slick/slick.js';
 import '../vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js';
+import '../vendor/custombox/custombox.min.js';
 
 import './hs.core.js';
 import './components/hs.header.js';
@@ -24,6 +27,7 @@ import './helpers/hs.hamburgers.js';
 import './components/hs.tabs.js';
 import './components/hs.popup.js';
 import './components/hs.carousel.js';
+import './components/hs.modal-window.js';
 
 // JS Plugins Init
 $(document).on('ready', function () {
@@ -42,6 +46,8 @@ $(document).on('ready', function () {
     // initialization of HSDropdown component
     $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'));
 
+    // initialization of popups
+    $.HSCore.components.HSModalWindow.init('[data-modal-target]');
 });
 
 $(window).on('resize', function () {

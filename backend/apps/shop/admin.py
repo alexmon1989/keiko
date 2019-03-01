@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Ingredient, Property
+from .models import Category, Product, Ingredient, Property, Order, CartProduct
 
 
 @admin.register(Category)
@@ -40,3 +40,20 @@ class PropertyAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Property."""
     ordering = ('title',)
     search_fields = ('title',)
+
+
+class CartInline(admin.TabularInline):
+    model = CartProduct
+    extra = 1
+    fields = ['product', 'price', 'count']
+    verbose_name = "Продукт"
+    verbose_name_plural = "Корзина"
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    """Класс для описания интерфейса администрирования модели Order."""
+    inlines = [
+        CartInline,
+    ]
+    exclude = ('cart',)

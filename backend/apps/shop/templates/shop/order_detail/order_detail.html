@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid g-px-0">
+        <div class="row no-gutters">
+            <div class="col-md-2 mt-0 g-bg-dark-gray ">
+                {% include '_partials/sidebar.html' %}
+            </div>
+            <div class="col-md-10 g-color-white order-detail">
+
+                {% include '_partials/messages.html' %}
+
+                {% include 'shop/order_detail/_partials/breadcrumbs.html' %}
+
+                <div class="row no-gutters g-mb-30">
+                    <div class="col-md-12 g-px-15">
+                        <h1 class="g-mb-30">Заказ №{{ order.pk }}</h1>
+                    </div>
+
+                    <div class="col-md-6 g-px-15">
+                        <dl class="row">
+                            <dt class="col-sm-5">Статус заказа</dt>
+                            <dd class="col-sm-7 g-font-weight-600 g-font-size-16">
+                                {% if order.status == 1 %}
+                                    <span class="text-warning">{{ order.get_status_display }}</span>
+                                {% elif order.status == 2 %}
+                                    <span class="text-info">{{ order.get_status_display }}</span>
+                                {% elif order.status == 3 %}
+                                    <span class="text-success">{{ order.get_status_display }}</span>
+                                {% endif %}
+                            </dd>
+                        </dl>
+
+                        <dl class="row">
+                            <dt class="col-sm-5">Способ доставки</dt>
+                            <dd class="col-sm-7">{{ order.get_delivery_mode_display }}</dd>
+                        </dl>
+
+                        {% if order.delivery_mode == 'courier' %}
+                            <dl class="row">
+                                <dt class="col-sm-5">Адрес доставки</dt>
+                                <dd class="col-sm-7">{{ order.user_address }}</dd>
+                            </dl>
+                        {% endif %}
+
+                        <dl class="row">
+                            <dt class="col-sm-5">Способ оплаты</dt>
+                            <dd class="col-sm-7">{{ order.get_pay_mode_display }}</dd>
+                        </dl>
+
+                        <dl class="row">
+                            <dt class="col-sm-5">Имя клиента</dt>
+                            <dd class="col-sm-7">{{ order.user_name }}</dd>
+                        </dl>
+
+                        <dl class="row">
+                            <dt class="col-sm-5">E-Mail клиента</dt>
+                            <dd class="col-sm-7">{{ order.user_email }}</dd>
+                        </dl>
+
+                        <dl class="row">
+                            <dt class="col-sm-5">Телефон клиента</dt>
+                            <dd class="col-sm-7">{{ order.user_phone }}</dd>
+                        </dl>
+
+                        <dl class="row">
+                            <dt class="col-sm-5">Комментарий пользователя</dt>
+                            <dd class="col-sm-7">{{ order.user_comment }}</dd>
+                        </dl>
+                    </div>
+
+                    <div class="col-md-6 g-px-15">
+                        <h5 class="g-mb-20">Заказанные продукты</h5>
+
+                        <!-- Basic Table -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Продукт</th>
+                                    <th>Количество</th>
+                                    <th>Стоимость</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for product in order.cartproduct_set.all %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            {% if product.product %}
+                                                <a href="{{ product.product.get_absolute_url }}">{{ product.product }}</a>
+                                            {% else %}
+                                                Продукт удалён
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ product.count }}</td>
+                                        <td>{{ product.count }} x {{ product.price }}&nbsp;<i class="fa fa-rub"></i></td>
+                                    </tr>
+                                {% endfor %}
+                                    <tr class="g-font-size-16">
+                                        <td colspan="3" class="text-right">Итого</td>
+                                        <td>{{ order.get_products_price_total }}&nbsp;<i class="fa fa-rub"></i></td>
+                                    </tr>
+                                    <tr class="g-font-size-16">
+                                        <td colspan="3" class="text-right">Сумма к оплате</td>
+                                        <td>{{ order.get_price_total }}&nbsp;<i class="fa fa-rub"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End Basic Table -->
+                    </div>
+                </div>
+
+                {% include '_partials/footer.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
