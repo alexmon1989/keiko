@@ -137,6 +137,7 @@ class Order(TimeStampedModel):
         choices=((1, 'Создан'), (2, 'Передан в службу доставки'), (3, 'Выдан')),
         default=1
     )
+    frontpad_id = models.IntegerField('Id в системе Frontpad', null=True, blank=True, editable=False)
 
     def __str__(self):
         return f"Заказ №{self.pk}"
