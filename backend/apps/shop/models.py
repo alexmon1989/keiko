@@ -1,5 +1,8 @@
 from django.shortcuts import reverse
 from django.db import models
+from django.core.mail import send_mail
+from django.template import loader
+from django.conf import settings
 from keiko.utils import TimeStampedModel
 from ckeditor.fields import RichTextField
 import json
@@ -155,6 +158,26 @@ class Order(TimeStampedModel):
         if self.delivery_mode == 'courier':
             s += 100
         return s
+
+    def save(self, *args, **kwargs):
+        created = self.pk is None
+        super(Order, self).save(*args, **kwargs)
+        # Отправка E-Mail с данными заказа
+        if created:
+            html_message = loader.render_to_string(
+                'shop/email/order.html',
+                {
+                    'order': self
+                }
+            )
+            emails = [self.user_email]
+            send_mail(
+                subject=f"Заказ №{self.pk}",
+                message='',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=emails,
+                fail_silently=False,
+                html_message=html_message)
 
     class Meta:
         verbose_name = 'Заказ'
