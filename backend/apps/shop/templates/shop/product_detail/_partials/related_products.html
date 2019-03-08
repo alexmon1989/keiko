@@ -2,7 +2,7 @@
 
 <h3 class="g-mb-40">С этим блюдом заказывают</h3>
 
-{% if product.related_products.all|length > 0 %}
+{% if related_products.all|length > 0 %}
 
     <div class="js-carousel g-pb-20" data-infinite="true"
          data-slides-show="5" data-slides-scroll="5" data-rows="1"
@@ -34,7 +34,7 @@
         }
       ]'>
 
-        {% for r_product in product.related_products.all %}
+        {% for r_product in related_products.all %}
             <div class="d-flex flex-column related-product g-mx-10">
                 <div class="g-px-25 g-mt-15">
                     <a href="{{ r_product.get_absolute_url }}">

@@ -36,6 +36,18 @@ class ProductDetailView(DetailView):
     queryset = Product.objects.filter(is_enabled=True)
     template_name = 'shop/product_detail/product_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Связанные продукты
+        if self.object.related_products.filter(is_enabled=True).count() > 0:
+            context['related_products'] = self.object.related_products.filter(is_enabled=True)
+        else:
+            context['related_products'] = Product.objects.filter(
+                primary_category=self.object.primary_category,
+                is_enabled=True
+            ).exclude(pk=self.object.pk)
+        return context
+
 
 class CartView(TemplateView):
     """Страница корзины."""
