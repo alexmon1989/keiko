@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from apps.shop.models import Order
+from apps.shop.models import Order, Product
 
 import requests
 
@@ -16,30 +16,38 @@ class Command(BaseCommand):
             params = {
                 'secret': settings.FRONTPAD_API_SECRET,
                 # product – массив артикулов товаров
-                'product': [p.product.frontpad_id for p in o.cartproduct_set.all()],
+                'product[]': [p.product.frontpad_id for p in o.cartproduct_set.all()],
                 # product_kol – массив количества товаров
-                'product_kol': [p.count for p in o.cartproduct_set.all()],
+                'product_kol[]': [p.count for p in o.cartproduct_set.all()],
                 # product_price – массив цен товаров (установка цены при заказе через API возможна только для товаров
                 # с включенной опцией "Изменение цены при создании заказа";
-                'product_price': [p.price for p in o.cartproduct_set.all()],
+                'product_price[]': [p.price for p in o.cartproduct_set.all()],
                 'street': o.user_address,
                 'mail': o.user_email,
                 'descr': o.user_comment,
                 'name': o.user_name,
                 'phone': o.user_phone,
+                'pay': 1
             }
+
+            # Если доставка курьером
+            if o.delivery_mode == 'courier':
+                p = Product.objects.get(title='ДОСТАВКА')
+                params['product[]'].append(p.frontpad_id)
+                params['product_kol[]'].append(1)
+                params['product_price[]'].append(p.price)
 
             r = requests.post(f"{settings.FRONTPAD_API_ADDR}?new_order", data=params)
 
             try:
                 data = r.json()
             except ValueError as e:
-                self.stdout.write(self.style.Error(f"Ошибка в полученных данных: {e}"))
+                self.stdout.write(self.style.ERROR(f"Ошибка в полученных данных: {e}"))
             else:
                 if data['result'] == 'success':
                     o.frontpad_id = int(data['order_id'])
                     o.save()
                 else:
-                    self.stdout.write(self.style.Error(f"Ошибка в полученных данных: {data.get('error')}"))
+                    self.stdout.write(self.style.ERROR(f"Ошибка в полученных данных: {data.get('error')}"))
 
-        self.stdout.write(self.style.SUCCESS('Успешно завершено'))
+        self.stdout.write(self.style.SUCCESS('Завершено'))

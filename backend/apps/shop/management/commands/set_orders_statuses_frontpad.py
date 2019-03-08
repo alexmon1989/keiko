@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from apps.shop.models import Order
+from apps.shop.models import Order, OrderStatus
 
 import requests
 
@@ -23,13 +23,12 @@ class Command(BaseCommand):
             try:
                 data = r.json()
             except ValueError as e:
-                self.stdout.write(self.style.Error(f"Ошибка в полученных данных: {e}"))
+                self.stdout.write(self.style.ERROR(f"Ошибка в полученных данных: {e}"))
             else:
                 if data['result'] == 'success':
-                    # TODO: доделать
-                    o.status = data['status']
+                    o.status = OrderStatus.objects.filter(title=data['status']).first()
                     o.save()
                 else:
-                    self.stdout.write(self.style.Error(f"Ошибка в полученных данных: {data.get('error')}"))
+                    self.stdout.write(self.style.ERROR(f"Ошибка в полученных данных: {data.get('error')}"))
 
         self.stdout.write(self.style.SUCCESS('Успешно завершено'))

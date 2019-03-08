@@ -57,7 +57,7 @@ class OrderAdmin(admin.ModelAdmin):
         CartInline,
     ]
     exclude = ('cart',)
-    list_display = ('id', 'created_at', 'user_name', 'user_email', 'user_phone', 'pay_mode', 'delivery_mode',
+    list_display = ('user_name', 'created_at', 'user_email', 'user_phone', 'pay_mode', 'delivery_mode',
                     'get_price_total', 'status')
     readonly_fields = ('get_price_total',)
 
