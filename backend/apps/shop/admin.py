@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Ingredient, Property, Order, CartProduct
+from .models import Category, Product, Ingredient, Property, Order, OrderStatus, CartProduct
 
 
 @admin.register(Category)
@@ -67,3 +67,11 @@ class OrderAdmin(admin.ModelAdmin):
 
     get_price_total.short_description = 'Стоимость заказа'
     get_price_total.admin_order_field = 'get_price_total'
+
+
+@admin.register(OrderStatus)
+class OrderStatusAdmin(admin.ModelAdmin):
+    """Класс для описания интерфейса администрирования модели OrderStatus."""
+    search_fields = ('title',)
+    list_display = ('title', 'color')
+    ordering = ('pk',)

@@ -21,14 +21,8 @@
                     <div class="col-md-6 g-px-15">
                         <dl class="row">
                             <dt class="col-sm-5">Статус заказа</dt>
-                            <dd class="col-sm-7 g-font-weight-600 g-font-size-16">
-                                {% if order.status == 1 %}
-                                    <span class="text-warning">{{ order.get_status_display }}</span>
-                                {% elif order.status == 2 %}
-                                    <span class="text-info">{{ order.get_status_display }}</span>
-                                {% elif order.status == 3 %}
-                                    <span class="text-success">{{ order.get_status_display }}</span>
-                                {% endif %}
+                            <dd class="col-sm-7 g-font-weight-600 g-font-size-16" style="color: {{ order.status.color }}">
+                                {{ order.status }}
                             </dd>
                         </dl>
 

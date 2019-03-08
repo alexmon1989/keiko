@@ -7,6 +7,7 @@ from keiko.utils import TimeStampedModel
 from ckeditor.fields import RichTextField
 import json
 import uuid
+from colorfield.fields import ColorField
 
 
 class Category(TimeStampedModel):
@@ -117,6 +118,19 @@ class CartProduct(TimeStampedModel):
         return 'Удалённый продукт'
 
 
+class OrderStatus(TimeStampedModel):
+    """Модель статуса заказа."""
+    title = models.CharField('Название статуса', max_length=255)
+    color = ColorField('Цвет', default='#FF0000')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Статус заказа'
+        verbose_name_plural = 'Статусы заказа'
+
+
 class Order(TimeStampedModel):
     """Модель заказа."""
     unique_id = models.UUIDField('Уникальный идентификатор', default=uuid.uuid4, editable=False, unique=True)
@@ -135,11 +149,7 @@ class Order(TimeStampedModel):
     user_phone = models.CharField('Телефон клиента', max_length=255, null=True, blank=True)
     user_address = models.CharField('Адрес доставки', max_length=255, null=True, blank=True)
     user_comment = models.TextField('Комментарий пользователя', null=True, blank=True)
-    status = models.PositiveIntegerField(
-        'Статус заказа',
-        choices=((1, 'Создан'), (2, 'Передан в службу доставки'), (3, 'Выдан')),
-        default=1
-    )
+    status = models.ForeignKey(OrderStatus, verbose_name='Статус заказа', on_delete=models.CASCADE, default=1)
     frontpad_id = models.IntegerField('Id в системе Frontpad', null=True, blank=True, editable=False)
 
     def __str__(self):
