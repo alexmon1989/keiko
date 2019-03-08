@@ -2,3 +2,5 @@
 static
 media
 database
+Dockerfile
+docker-compose.yml
