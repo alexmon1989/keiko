@@ -31,4 +31,4 @@ class Command(BaseCommand):
                 else:
                     self.stdout.write(self.style.ERROR(f"Ошибка в полученных данных: {data.get('error')}"))
 
-        self.stdout.write(self.style.SUCCESS('Успешно завершено'))
+        self.stdout.write(self.style.SUCCESS('Завершено'))
