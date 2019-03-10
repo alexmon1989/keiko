@@ -17,7 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Product."""
     ordering = ('title',)
-    list_display = ('title', 'price', 'frontpad_id', 'is_enabled')
+    list_display = ('title', 'slug', 'price', 'primary_category', 'frontpad_id', 'is_enabled')
     list_editable = ('is_enabled',)
     list_filter = ('is_enabled',)
     search_fields = ('title',)
@@ -58,8 +58,8 @@ class OrderAdmin(admin.ModelAdmin):
     ]
     exclude = ('cart',)
     list_display = ('user_name', 'created_at', 'user_email', 'user_phone', 'pay_mode', 'delivery_mode',
-                    'get_price_total', 'status')
-    readonly_fields = ('get_price_total',)
+                    'get_price_total', 'status', 'frontpad_id')
+    readonly_fields = ('get_price_total', 'frontpad_id')
 
     def get_price_total(self, obj):
         """Возвращает стоимость заказа."""
