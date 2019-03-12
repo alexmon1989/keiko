@@ -1,0 +1,12 @@
+{% load static %}
+
+<div class="u-heading-v3-1 g-brd-white-opacity-0_3 g-mb-25">
+    <h2 class="u-heading-v3__title h6 text-uppercase g-brd-primary">{{ data.title }}</h2>
+</div>
+
+<address class="g-bg-no-repeat g-line-height-2 g-mt-minus-4"
+         style="background-image: url({% static 'img/maps/map2.png' %});">
+
+    {{ data.html|safe }}
+
+</address>

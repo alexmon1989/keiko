@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load keiko_extras %}
 
 <!-- Footer -->
 <div class="footer g-color-white-opacity-0_8 g-py-60">
@@ -103,22 +104,7 @@
 
             <!-- Footer Content -->
             <div class="col-lg-3 col-md-6">
-                <div class="u-heading-v3-1 g-brd-white-opacity-0_3 g-mb-25">
-                    <h2 class="u-heading-v3__title h6 text-uppercase g-brd-primary">Контакты</h2>
-                </div>
-
-                <address class="g-bg-no-repeat g-line-height-2 g-mt-minus-4"
-                         style="background-image: url({% static 'img/maps/map2.png' %});">
-
-                    Владикавказ, СНО "Дарьял" 18
-
-                    <br>1-я линия
-
-                    <br>Телефон: <a class="g-color-white" href="tel:+74952342424">+7 495 234-24-24</a>
-
-                    <br>График работы: c 10 утра до 11 ночи
-
-                </address>
+                {% footer_contacts %}
             </div>
             <!-- End Footer Content -->
         </div>
