@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.contrib import messages
-from .models import Category, Ingredient, Product, Order, CartProduct
+from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings
 import json
 
 
@@ -52,6 +52,17 @@ class ProductDetailView(DetailView):
 class CartView(TemplateView):
     """Страница корзины."""
     template_name = 'shop/cart/cart_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        delivery_settings, created = DeliverySettings.objects.get_or_create()
+        # Настройки доставки
+        if delivery_settings.product:
+            context['delivery_price'] = delivery_settings.product.price
+        else:
+            context['delivery_price'] = 100
+        context['delivery_discount_from'] = delivery_settings.price_discount_from
+        return context
 
 
 @require_POST

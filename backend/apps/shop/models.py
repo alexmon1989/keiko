@@ -166,7 +166,11 @@ class Order(TimeStampedModel):
         """Возвращает стоимость заказа."""
         s = self.get_products_price_total()
         if self.delivery_mode == 'courier':
-            s += 100
+            delivery_settings, created = DeliverySettings.objects.get_or_create()
+            if delivery_settings.product:
+                s += delivery_settings.product.price
+            else:
+                s += 100
         return s
 
     def save(self, *args, **kwargs):
@@ -192,3 +196,14 @@ class Order(TimeStampedModel):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
+
+class DeliverySettings(models.Model):
+    """Модель настроек доставки."""
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Продукт')
+    price_discount_from = models.PositiveIntegerField('Сумма заказа, после которой доставка бесплатная', default=800)
+
+    class Meta:
+        verbose_name = 'Настройки доставки'
+        verbose_name_plural = 'Настройки доставки'
+        app_label = 'settings'

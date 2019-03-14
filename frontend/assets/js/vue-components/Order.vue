@@ -17,6 +17,13 @@
                 </tr>
             </table>
 
+            <transition name="fade">
+                <div class="row g-font-size-18 g-px-10 g-mb-20" v-if="deliveryMode === 'courier'">
+                    <div class="col-6">Доставка:</div>
+                    <div class="col-6 text-right">{{ deliveryPriceComputed }} <i class="fa fa-rub"></i></div>
+                </div>
+            </transition>
+
             <div class="row g-font-size-18 g-px-10 g-mb-30">
                 <div class="col-6 g-font-weight-600">К оплате:</div>
                 <div class="col-6 text-right">{{ orderSum }} <i class="fa fa-rub"></i></div>
@@ -47,7 +54,7 @@
                     <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
                         <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
                     </div>
-                    Доставка курьером (+100 руб.)
+                    Доставка курьером<span v-if="deliveryPriceComputed > 0">&nbsp;(+{{ deliveryPriceComputed }} руб.)</span><span v-else>&nbsp;(бесплатно)</span>
                 </label>
             </div>
 
@@ -184,7 +191,7 @@
         components: {
             CartActions
         },
-        props: ["cart"],
+        props: ["cart", "deliveryPrice", "deliveryDiscountFrom"],
         data() {
             return {
                 deliveryMode: 'self',
@@ -209,11 +216,16 @@
                 }, 0)
             },
             orderSum() {
-                let delivery_cost = 0;
-                if (this.deliveryMode === 'courier') {
-                    delivery_cost = 100;
+                if (this.deliveryMode === 'self') {
+                    return this.total;
                 }
-                return this.total + delivery_cost;
+                return this.total + this.deliveryPriceComputed;
+            },
+            deliveryPriceComputed() {
+                if (this.total >= this.deliveryDiscountFrom) {
+                    return 0;
+                }
+                return this.deliveryPrice;
             }
         },
         watch: {

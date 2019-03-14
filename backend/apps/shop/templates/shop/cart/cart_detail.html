@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="g-pa-15 g-mb-70 g-bg-gray-dark-v2">
-                    <order :cart="cart"/>
+                    <order :cart="cart" :delivery-price="{{ delivery_price|stringformat:"i" }}" :delivery-discount-from="{{ delivery_discount_from }}"/>
                 </div>
 
                 {% include '_partials/footer.html' %}
