@@ -29,6 +29,9 @@ class Command(BaseCommand):
                     o.status = OrderStatus.objects.filter(title=data['status']).first()
                     o.save()
                 else:
+                    if data.get('error') == 'invalid_order_id':
+                        o.status, created = OrderStatus.objects.get_or_create(title='Отменён')
+                        o.save()
                     self.stdout.write(self.style.ERROR(f"Ошибка в полученных данных: {data.get('error')}"))
 
         self.stdout.write(self.style.SUCCESS('Завершено'))
