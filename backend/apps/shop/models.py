@@ -173,10 +173,11 @@ class Order(TimeStampedModel):
                 s += 100
         return s
 
+    @property
     def is_delivery_free(self):
         """Бесплатная ли доставка."""
         delivery_settings, created = DeliverySettings.objects.get_or_create()
-        if self.get_products_price_total >= delivery_settings.price_discount_from:
+        if self.get_products_price_total() >= delivery_settings.price_discount_from:
             return True
         return False
 
