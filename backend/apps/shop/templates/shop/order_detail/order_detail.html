@@ -96,11 +96,11 @@
                                 {% endfor %}
                                     <tr class="g-font-size-16">
                                         <td colspan="3" class="text-right">Итого</td>
-                                        <td>{{ order.get_products_price_total }}&nbsp;<i class="fa fa-rub"></i></td>
+                                        <td>{{ order.get_products_price_total|stringformat:"i" }}&nbsp;<i class="fa fa-rub"></i></td>
                                     </tr>
                                     <tr class="g-font-size-16">
                                         <td colspan="3" class="text-right">Сумма к оплате</td>
-                                        <td>{{ order.get_price_total }}&nbsp;<i class="fa fa-rub"></i></td>
+                                        <td>{{ order.get_price_total|stringformat:"i" }}&nbsp;<i class="fa fa-rub"></i></td>
                                     </tr>
                                 </tbody>
                             </table>
