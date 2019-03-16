@@ -173,6 +173,13 @@ class Order(TimeStampedModel):
                 s += 100
         return s
 
+    def is_delivery_free(self):
+        """Бесплатная ли доставка."""
+        delivery_settings, created = DeliverySettings.objects.get_or_create()
+        if self.get_products_price_total >= delivery_settings.price_discount_from:
+            return True
+        return False
+
     def save(self, *args, **kwargs):
         created = self.pk is None
         super(Order, self).save(*args, **kwargs)

@@ -30,12 +30,15 @@ class Command(BaseCommand):
                 'pay': 1
             }
 
-            # Если доставка курьером
-            if o.delivery_mode == 'courier':
-                p = Product.objects.get(title='ДОСТАВКА')
-                params['product[]'].append(p.frontpad_id)
-                params['product_kol[]'].append(1)
-                params['product_price[]'].append(p.price)
+            # Если доставка платная и способ доставки - курьером
+            if not o.is_delivery_free and o.delivery_mode == 'courier':
+                try:
+                    p = Product.objects.get(title='ДОСТАВКА')
+                    params['product[]'].append(p.frontpad_id)
+                    params['product_kol[]'].append(1)
+                    params['product_price[]'].append(p.price)
+                except Product.DoesNotExist:
+                    pass
 
             r = requests.post(f"{settings.FRONTPAD_API_ADDR}?new_order", data=params)
 
