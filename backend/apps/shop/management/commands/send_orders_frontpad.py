@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Список заказов без frontpad_id
-        orders = Order.objects.filter(frontpad_id__isnull=True)
+        orders = Order.ready_orders.filter(frontpad_id__isnull=True)
 
         for o in orders:
             params = {
@@ -27,7 +27,7 @@ class Command(BaseCommand):
                 'descr': o.user_comment,
                 'name': o.user_name,
                 'phone': o.user_phone,
-                'pay': 1
+                'pay': 1 if o.pay_mode == 'self' else 2
             }
 
             # Если доставка платная и способ доставки - курьером

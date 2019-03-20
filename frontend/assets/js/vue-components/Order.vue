@@ -63,7 +63,7 @@
                 <!-- Left Column -->
                 <div class="col-md-12">
                     <div class="form-group g-mb-10">
-                        <label class="u-check g-pl-25">
+                        <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
                             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
                                    name="radGroup2_1"
                                    type="radio"
@@ -73,6 +73,18 @@
                                 <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
                             </div>
                             Оплата наличными при получении
+                        </label>
+
+                        <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
+                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                                   name="radGroup2_1"
+                                   type="radio"
+                                   value="online"
+                                   v-model="payMode">
+                            <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
+                                <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
+                            </div>
+                            Онлайн (Robokassa)
                         </label>
                     </div>
                 </div>
@@ -228,13 +240,6 @@
                 return this.deliveryPrice;
             }
         },
-        watch: {
-            deliveryMode: function (val) {
-                if (val === 'self') {
-                    this.payMode = 'cash';
-                }
-            },
-        },
         methods: {
             handleSubmit(e) {
                 this.$validator.validate().then(valid => {
@@ -254,7 +259,11 @@
                             cart: this.cart
                         })
                             .then(response => {
-                                EventBus.$emit('CLEAN-CART', location.href = '/shop/order-detail/' + response.data.unique_id);
+                                let href = '/shop/order-detail/' + response.data.unique_id;
+                                if (this.payMode === 'online') {
+                                    href = response.data.robokassa_url;
+                                }
+                                EventBus.$emit('CLEAN-CART', location.href = href);
                             })
                             .catch(e => {
                                 this.errors.push(e);
@@ -271,8 +280,7 @@
         transition: opacity .5s;
     }
 
-    .fade-enter, .fade-leave-to
-    {
+    .fade-enter, .fade-leave-to {
         opacity: 0;
     }
 </style>

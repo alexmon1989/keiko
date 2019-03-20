@@ -57,9 +57,9 @@ class OrderAdmin(admin.ModelAdmin):
         CartInline,
     ]
     exclude = ('cart',)
-    list_display = ('user_name', 'created_at', 'user_email', 'user_phone', 'pay_mode', 'delivery_mode',
+    list_display = ('user_name', 'created_at', 'user_email', 'user_phone', 'pay_mode', 'paid', 'delivery_mode',
                     'get_price_total', 'status', 'frontpad_id')
-    readonly_fields = ('get_price_total', 'frontpad_id')
+    readonly_fields = ('get_price_total',)
 
     def get_price_total(self, obj):
         """Возвращает стоимость заказа."""

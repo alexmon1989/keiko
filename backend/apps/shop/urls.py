@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import CategoryDetailView, IngredientDetailView, ProductDetailView, CartView, create_order, OrderDetailView
+from .views import (CategoryDetailView, IngredientDetailView, ProductDetailView, CartView, create_order,
+                    OrderDetailView, robokassa_result, robokassa_fail, robokassa_success)
 
 app_name = 'shop'
 
@@ -10,4 +11,7 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart'),
     path('create-order', create_order, name='create-order'),
     path('order-detail/<slug:unique_id>/', OrderDetailView.as_view(), name='order-detail'),
+    path('robokassa/result', robokassa_result, name='robokassa-result'),
+    path('robokassa/success/', robokassa_success, name='robokassa-success'),
+    path('robokassa/fail/', robokassa_fail, name='robokassa-fail'),
 ]

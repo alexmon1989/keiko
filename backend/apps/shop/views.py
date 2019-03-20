@@ -1,10 +1,14 @@
 from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.contrib import messages
+from django.conf import settings
+from django.shortcuts import redirect, reverse
 from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings
+from .utils import create_robokassa_url, send_order_email_to_client
 import json
+from hashlib import sha512
 
 
 class CategoryDetailView(DetailView):
@@ -91,14 +95,85 @@ def create_order(request):
         )
         c_p.save()
 
-    # Сообщение об успехе
-    messages.add_message(request, messages.SUCCESS, 'Заказ успешно создан. Менеджер свяжется с вами в ближайшее время.')
+    # Сообщение об успехе, отправление E-Mail
+    if o.pay_mode == 'self':
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            'Заказ успешно создан. Менеджер свяжется с вами в ближайшее время.'
+        )
+        send_order_email_to_client(o)
 
-    # Ответ
-    return JsonResponse({
+    # Данные в ответе
+    response_data = {
         'success': 1,
         'unique_id': o.unique_id
-    })
+    }
+
+    # Ссылка на оплату в Robokassa
+    if o.pay_mode == 'online':
+        response_data['robokassa_url'] = create_robokassa_url(o)
+
+    return JsonResponse(response_data)
+
+
+@require_POST
+def robokassa_result(request):
+    """Обрабатывает успешный результат оплаты на Robokassa."""
+    # Пароль Robokassa
+    mrh_pass2 = settings.ROBOKASSA_TEST_PASSWORD2 if settings.ROBOKASSA_IS_TEST else settings.ROBOKASSA_PASSWORD2
+
+    # Параметры, которые отправил Robokassa
+    out_summ = request.POST.get('OutSum')
+    inv_id = request.POST.get('InvId')
+    crc = request.POST.get('SignatureValue')
+
+    # Построение хэша
+    my_crc = sha512(f"{out_summ}:{inv_id}:{mrh_pass2}".encode('utf-8')).hexdigest().upper()
+
+    # Если хеши совпали
+    if my_crc == crc:
+        order = Order.objects.get(pk=inv_id)
+        order.paid = True
+        order.save()
+        send_order_email_to_client(order)
+        return JsonResponse({'success': 1})
+        # return redirect(reverse('shop:order-detail', args=[order.unique_id]))
+    else:
+        return JsonResponse({'error': 1})
+
+
+def robokassa_success(request):
+    """Обрабатывает переадресацию с Robokassa в случае успешного платежа."""
+    # Пароль Robokassa
+    mrh_pass1 = settings.ROBOKASSA_TEST_PASSWORD1 if settings.ROBOKASSA_IS_TEST else settings.ROBOKASSA_PASSWORD1
+
+    # Параметры, которые отправил Robokassa
+    out_summ = request.GET.get('OutSum')
+    inv_id = request.GET.get('InvId')
+    crc = request.GET.get('SignatureValue')
+
+    # Построение хэша
+    my_crc = sha512(f"{out_summ}:{inv_id}:{mrh_pass1}".encode('utf-8')).hexdigest().upper()
+
+    if my_crc == crc:
+        order = Order.objects.get(pk=inv_id)
+        if order.paid:
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                'Заказ успешно создан. Менеджер свяжется с вами в ближайшее время.'
+            )
+            return redirect(reverse('shop:order-detail', args=[order.unique_id]))
+        else:
+            return Http404('order hasn\'t been paid!')
+    else:
+        return Http404('bad sign')
+
+
+def robokassa_fail(request):
+    """Обрабатывает переадресацию с Robokassa в случае неуспешного платежа."""
+    return redirect('/')
 
 
 class OrderDetailView(DetailView):

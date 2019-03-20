@@ -1,8 +1,6 @@
 from django.shortcuts import reverse
 from django.db import models
-from django.core.mail import send_mail
-from django.template import loader
-from django.conf import settings
+from django.db.models import Q
 from keiko.utils import TimeStampedModel
 from ckeditor.fields import RichTextField
 import json
@@ -131,6 +129,12 @@ class OrderStatus(TimeStampedModel):
         verbose_name_plural = 'Статусы заказа'
 
 
+class ReadyOrdersManager(models.Manager):
+    """Заказы, пригодные к обработке."""
+    def get_queryset(self):
+        return super().get_queryset().filter(Q(paid=True) | Q(pay_mode='cash'))
+
+
 class Order(TimeStampedModel):
     """Модель заказа."""
     unique_id = models.UUIDField('Уникальный идентификатор', default=uuid.uuid4, editable=False, unique=True)
@@ -142,15 +146,19 @@ class Order(TimeStampedModel):
     pay_mode = models.CharField(
         'Метод оплаты',
         max_length=255,
-        choices=(('cash', 'Наличными'),)
+        choices=(('cash', 'Наличными'), ('online', 'Онлайн-оплата (Robokassa)'),)
     )
+    paid = models.BooleanField('Оплачено', default=False)
     user_name = models.CharField('Имя клиента', max_length=255, null=True, blank=True)
     user_email = models.EmailField('E-Mail клиента', max_length=255, null=True, blank=True)
     user_phone = models.CharField('Телефон клиента', max_length=255, null=True, blank=True)
     user_address = models.CharField('Адрес доставки', max_length=255, null=True, blank=True)
     user_comment = models.TextField('Комментарий пользователя', null=True, blank=True)
     status = models.ForeignKey(OrderStatus, verbose_name='Статус заказа', on_delete=models.CASCADE, default=1)
-    frontpad_id = models.IntegerField('Id в системе Frontpad', null=True, blank=True, editable=False)
+    frontpad_id = models.IntegerField('Артикул в системе Frontpad', null=True, blank=True, editable=False)
+
+    objects = models.Manager()  # The default manager.
+    ready_orders = ReadyOrdersManager()  # Заказы, готовые к обработке
 
     def __str__(self):
         return f"Заказ №{self.pk}"
@@ -180,26 +188,6 @@ class Order(TimeStampedModel):
         if self.get_products_price_total() >= delivery_settings.price_discount_from:
             return True
         return False
-
-    def save(self, *args, **kwargs):
-        created = self.pk is None
-        super(Order, self).save(*args, **kwargs)
-        # Отправка E-Mail с данными заказа
-        if created:
-            html_message = loader.render_to_string(
-                'shop/email/order.html',
-                {
-                    'order': self
-                }
-            )
-            emails = [self.user_email]
-            send_mail(
-                subject=f"Заказ №{self.pk}",
-                message='',
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=emails,
-                fail_silently=False,
-                html_message=html_message)
 
     class Meta:
         verbose_name = 'Заказ'
