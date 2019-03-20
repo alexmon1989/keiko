@@ -5,6 +5,7 @@ from django.http import JsonResponse, Http404
 from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import redirect, reverse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings
 from .utils import create_robokassa_url, send_order_email_to_client
 import json
@@ -118,6 +119,7 @@ def create_order(request):
 
 
 @require_POST
+@csrf_exempt
 def robokassa_result(request):
     """Обрабатывает успешный результат оплаты на Robokassa."""
     # Пароль Robokassa
@@ -138,7 +140,6 @@ def robokassa_result(request):
         order.save()
         send_order_email_to_client(order)
         return JsonResponse({'success': 1})
-        # return redirect(reverse('shop:order-detail', args=[order.unique_id]))
     else:
         return JsonResponse({'error': 1})
 
@@ -154,7 +155,7 @@ def robokassa_success(request):
     crc = request.GET.get('SignatureValue')
 
     # Построение хэша
-    my_crc = sha512(f"{out_summ}:{inv_id}:{mrh_pass1}".encode('utf-8')).hexdigest().upper()
+    my_crc = sha512(f"{out_summ}:{inv_id}:{mrh_pass1}".encode('utf-8')).hexdigest()
 
     if my_crc == crc:
         order = Order.objects.get(pk=inv_id)
@@ -166,9 +167,9 @@ def robokassa_success(request):
             )
             return redirect(reverse('shop:order-detail', args=[order.unique_id]))
         else:
-            return Http404('order hasn\'t been paid!')
+            raise Http404('order hasn\'t been paid!')
     else:
-        return Http404('bad sign')
+        raise Http404('bad sign')
 
 
 def robokassa_fail(request):
