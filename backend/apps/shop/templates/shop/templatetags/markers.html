@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+<div class="markers">
+    {% for marker in markers %}
+        <img src="{{ marker.image.url }}"
+             alt=""
+             class="pr-1"
+             data-toggle="tooltip"
+             data-placement="bottom"
+             title="{{ marker.title }}">
+    {% endfor %}
+</div>

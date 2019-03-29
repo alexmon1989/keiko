@@ -1,32 +1,9 @@
 {% load static %}
+{% load shop_extras %}
 
-<div>
-    <div class="g-pos-abs">
-        {% if product.is_new %}
-            <img src="{% static 'img/markers/new.png' %}"
-                 alt=""
-                 class="pr-1"
-                 data-toggle="tooltip"
-                 data-placement="bottom"
-                 title="Новинка">
-        {% endif %}
-        {% if product.is_spicy %}
-            <img src="{% static 'img/markers/spicy.png' %}"
-                 alt=""
-                 class="pr-1"
-                 data-toggle="tooltip"
-                 data-placement="bottom"
-                 title="Острое">
-        {% endif %}
-        {% if product.is_hit %}
-            <img src="{% static 'img/markers/hit.png' %}"
-                 alt=""
-                 class="pr-1"
-                 data-toggle="tooltip"
-                 data-placement="bottom"
-                 title="Хит">
-        {% endif %}
-    </div>
+<div class="product-img">
+    {% markers product=product %}
+
     {% if product.image %}
         <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
     {% else %}

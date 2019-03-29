@@ -74,10 +74,8 @@ class Product(TimeStampedModel):
     price = models.FloatField('Цена', blank=True, null=True)
     related_products = models.ManyToManyField('Product', verbose_name='Связанные продукты', blank=True,
                                               help_text='Для блока "С этим продуктом часто покупают"')
+    markers = models.ManyToManyField('Marker', verbose_name='Маркеры', blank=True)
     frontpad_id = models.PositiveIntegerField('id товара в системе Frontpad', null=True, blank=True)
-    is_new = models.BooleanField('Новинка', default=False)
-    is_spicy = models.BooleanField('Острое', default=False)
-    is_hit = models.BooleanField('Хит', default=False)
     is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
@@ -223,3 +221,17 @@ class CardPayment(models.Model):
         verbose_name = 'Оплата картой'
         verbose_name_plural = 'Оплата картой'
         app_label = 'settings'
+
+
+class Marker(TimeStampedModel):
+    """Модель иконки товара (острое, хит и т.д.)."""
+    title = models.CharField('Название', max_length=255)
+    image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 40px * 30px')
+    weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке маркеров.')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Маркер'
+        verbose_name_plural = 'Маркеры'

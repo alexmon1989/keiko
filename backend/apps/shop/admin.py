@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Ingredient, Property, Order, OrderStatus, CartProduct
+from .models import Category, Product, Ingredient, Property, Order, OrderStatus, CartProduct, Marker
 
 
 @admin.register(Category)
@@ -75,3 +75,12 @@ class OrderStatusAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     list_display = ('title', 'color')
     ordering = ('pk',)
+
+
+@admin.register(Marker)
+class IconAdmin(admin.ModelAdmin):
+    """Класс для описания интерфейса администрирования модели Marker."""
+    search_fields = ('title',)
+    list_display = ('title', 'weight')
+    list_editable = ('weight',)
+    ordering = ('title',)

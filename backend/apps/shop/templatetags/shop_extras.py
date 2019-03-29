@@ -14,3 +14,10 @@ def categories():
 def ingredients():
     """Возвращает ингредиенты."""
     return Ingredient.objects.filter(is_enabled=True).order_by('-weight')
+
+
+@register.inclusion_tag('shop/templatetags/markers.html')
+def markers(product):
+    return {
+        'markers': product.markers.order_by('-weight')
+    }
