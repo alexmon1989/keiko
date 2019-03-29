@@ -86,6 +86,18 @@
                             </div>
                             Онлайн (Robokassa)
                         </label>
+
+                        <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
+                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                                   name="radGroup2_1"
+                                   type="radio"
+                                   value="card"
+                                   v-model="payMode">
+                            <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
+                                <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
+                            </div>
+                            Оплата картой
+                        </label>
                     </div>
                 </div>
             </div>
@@ -125,7 +137,7 @@
                            name="useremail"
                            id="useremail"
                            v-model="useremail"
-                           v-validate="'required|email'"
+                           v-validate="'email'"
                            data-vv-as="E-Mail"
                            placeholder="Введите ваш E-Mail">
                     <small class="form-control-feedback" v-if="errors.first('useremail')">{{ errors.first('useremail') }}</small>

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import redirect, reverse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings
+from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings, CardPayment
 from .utils import create_robokassa_url, send_order_email_to_client
 import json
 from hashlib import sha512
@@ -183,3 +183,8 @@ class OrderDetailView(DetailView):
     template_name = 'shop/order_detail/order_detail.html'
     slug_url_kwarg = 'unique_id'
     slug_field = 'unique_id'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context['card'], created = CardPayment.objects.get_or_create()
+        return context

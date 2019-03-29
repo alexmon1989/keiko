@@ -146,7 +146,7 @@ class Order(TimeStampedModel):
     pay_mode = models.CharField(
         'Метод оплаты',
         max_length=255,
-        choices=(('cash', 'Наличными'), ('online', 'Онлайн-оплата (Robokassa)'),)
+        choices=(('cash', 'Наличными'), ('online', 'Онлайн-оплата (Robokassa)'), ('card', 'Оплата картой'),)
     )
     paid = models.BooleanField('Оплачено', default=False)
     user_name = models.CharField('Имя клиента', max_length=255, null=True, blank=True)
@@ -189,6 +189,9 @@ class Order(TimeStampedModel):
             return True
         return False
 
+    def get_absolute_url(self):
+        return reverse('shop:order-detail', kwargs={'unique_id': self.unique_id})
+
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
@@ -199,7 +202,23 @@ class DeliverySettings(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Продукт')
     price_discount_from = models.PositiveIntegerField('Сумма заказа, после которой доставка бесплатная', default=800)
 
+    def __str__(self):
+        return 'Настройки доставки'
+
     class Meta:
         verbose_name = 'Настройки доставки'
         verbose_name_plural = 'Настройки доставки'
+        app_label = 'settings'
+
+
+class CardPayment(models.Model):
+    """Модель настроек оплаты картой."""
+    card_number = models.CharField('Номер карты', max_length=255, default='')
+
+    def __str__(self):
+        return 'Оплата картой'
+
+    class Meta:
+        verbose_name = 'Оплата картой'
+        verbose_name_plural = 'Оплата картой'
         app_label = 'settings'
