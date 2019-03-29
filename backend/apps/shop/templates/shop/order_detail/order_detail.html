@@ -48,10 +48,12 @@
                             <dd class="col-sm-7">{{ order.user_name }}</dd>
                         </dl>
 
-                        <dl class="row">
-                            <dt class="col-sm-5">E-Mail клиента</dt>
-                            <dd class="col-sm-7">{{ order.user_email }}</dd>
-                        </dl>
+                        {% if order.user_email %}
+                            <dl class="row">
+                                <dt class="col-sm-5">E-Mail клиента</dt>
+                                <dd class="col-sm-7">{{ order.user_email }}</dd>
+                            </dl>
+                        {% endif %}
 
                         <dl class="row">
                             <dt class="col-sm-5">Телефон клиента</dt>
