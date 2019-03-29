@@ -20,7 +20,7 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = self.object.product_set.filter(is_enabled=True).all()
+        context['products'] = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
         return context
 
 
@@ -32,7 +32,7 @@ class IngredientDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = self.object.product_set.filter(is_enabled=True).all()
+        context['products'] = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
         return context
 
 

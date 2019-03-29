@@ -17,9 +17,9 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     """Класс для описания интерфейса администрирования модели Product."""
     ordering = ('title',)
-    list_display = ('title', 'slug', 'price', 'primary_category', 'frontpad_id', 'is_enabled')
-    list_editable = ('is_enabled',)
-    list_filter = ('is_enabled',)
+    list_display = ('title', 'slug', 'weight', 'price', 'primary_category', 'frontpad_id', 'is_enabled')
+    list_editable = ('is_enabled', 'weight',)
+    list_filter = ('is_enabled', 'primary_category',)
     search_fields = ('title',)
     prepopulated_fields = {"slug": ("title",)}
 

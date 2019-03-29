@@ -62,6 +62,7 @@ class Product(TimeStampedModel):
     """Модель продукта."""
     title = models.CharField('Название', max_length=255)
     slug = models.SlugField()
+    weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке продуктов.')
     image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 450px * 450px')
     description = RichTextField('Описание', null=True, blank=True)
     primary_category = models.ForeignKey(Category, verbose_name='Первичная категория', blank=True, null=True,
