@@ -20,15 +20,16 @@ def orders_count():
 def send_order_email_to_client(order):
     """Высылает клиенту данные заказа на почту."""
     # TODO: сделать красивый шаблон со всеми товарами из корзины
-    html_message = loader.render_to_string('shop/email/order.html', {'order': order})
-    emails = [order.user_email]
-    send_mail(
-        subject=f"Заказ №{order.pk}",
-        message='',
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=emails,
-        fail_silently=False,
-        html_message=html_message)
+    if order.user_email:
+        html_message = loader.render_to_string('shop/email/order.html', {'order': order})
+        emails = [order.user_email]
+        send_mail(
+            subject=f"Заказ №{order.pk}",
+            message='',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=emails,
+            fail_silently=False,
+            html_message=html_message)
 
 
 def create_robokassa_url(order):
