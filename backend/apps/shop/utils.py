@@ -5,7 +5,6 @@ from django.conf import settings
 from hashlib import sha512
 from xml.dom.minidom import parseString
 import urllib.request
-from xml.etree import ElementTree
 
 
 def new_orders_count():

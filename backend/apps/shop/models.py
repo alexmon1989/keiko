@@ -131,7 +131,7 @@ class OrderStatus(TimeStampedModel):
 class ReadyOrdersManager(models.Manager):
     """Заказы, пригодные к обработке."""
     def get_queryset(self):
-        return super().get_queryset().filter(Q(paid=True) | Q(pay_mode='cash'))
+        return super().get_queryset().filter(Q(paid=True) | Q(pay_mode__in=('cash', 'card')))
 
 
 class Order(TimeStampedModel):
