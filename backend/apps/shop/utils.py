@@ -3,6 +3,9 @@ from django.core.mail import send_mail
 from django.template import loader
 from django.conf import settings
 from hashlib import sha512
+from xml.dom.minidom import parseString
+import urllib.request
+from xml.etree import ElementTree
 
 
 def new_orders_count():
@@ -35,7 +38,7 @@ def create_robokassa_url(order):
     mrh_pass1 = settings.ROBOKASSA_TEST_PASSWORD1 if settings.ROBOKASSA_IS_TEST else settings.ROBOKASSA_PASSWORD1
     inv_id = order.pk
     inv_desc = f"Оплата заказа №{order.pk} в keikorolls.ru"
-    out_summ = order.get_price_total()
+    out_summ = get_robokassa_sum(order.get_price_total())
     is_test = int(settings.ROBOKASSA_IS_TEST)
 
     crc = sha512(f"{mrh_login}:{out_summ}:{inv_id}:{mrh_pass1}".encode('utf-8')).hexdigest()
@@ -44,3 +47,16 @@ def create_robokassa_url(order):
           f"&OutSum={out_summ}&InvId={inv_id}&Desc={inv_desc}&SignatureValue={crc}&IsTest={is_test}"
 
     return url
+
+
+def get_robokassa_sum(out_sum):
+    """Получает сумму из Робокассы для платежей без комиссий."""
+    url = f"https://auth.robokassa.ru/Merchant/WebService/Service.asmx/CalcOutSumm?MerchantLogin={settings.ROBOKASSA_MERCHANT_LOGIN}" \
+          f"&IncCurrLabel=BankCard" \
+          f"&IncSum={out_sum}"
+
+    with urllib.request.urlopen(url) as response:
+        node = parseString(response.read())
+        res = node.getElementsByTagName('OutSum')[0].firstChild.nodeValue
+
+    return res

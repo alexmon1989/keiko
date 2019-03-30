@@ -7,7 +7,7 @@ from django.conf import settings
 from django.shortcuts import redirect, reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings, CardPayment
-from .utils import create_robokassa_url, send_order_email_to_client
+from .utils import create_robokassa_url, send_order_email_to_client, get_robokassa_sum
 import json
 from hashlib import sha512
 
