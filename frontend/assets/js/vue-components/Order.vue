@@ -65,45 +65,57 @@
                     <div class="form-group g-mb-10">
                         <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
                             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
-                                   name="radGroup2_1"
+                                   name="pay_mode"
                                    type="radio"
                                    value="cash"
+                                   v-validate="'required'"
+                                   data-vv-as="Метод оплаты"
                                    v-model="payMode">
                             <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
                                 <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
                             </div>
                             Оплата наличными при получении
                         </label>
+                    </div>
 
+                    <div class="form-group g-mb-10">
                         <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
                             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
-                                   name="radGroup2_1"
-                                   type="radio"
-                                   value="online"
-                                   v-model="payMode">
-                            <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
-                                <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
-                            </div>
-                            Онлайн (Robokassa)
-                        </label>
-
-                        <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
-                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
-                                   name="radGroup2_1"
+                                   name="pay_mode"
                                    type="radio"
                                    value="card"
+                                   v-validate="'required'"
+                                   data-vv-as="Метод оплаты"
                                    v-model="payMode">
                             <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
                                 <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
                             </div>
-                            Оплата картой
+                            Перевод на карту &nbsp;<i>(без комиссии)</i>
                         </label>
                     </div>
+
+                    <div class="form-group g-mb-0">
+                        <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
+                            <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                                   name="pay_mode"
+                                   type="radio"
+                                   value="online"
+                                   v-validate="'required'"
+                                   data-vv-as="Метод оплаты"
+                                   v-model="payMode">
+                            <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
+                                <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
+                            </div>
+                            Онлайн&nbsp;<i>(Robokassa, комиссия 7%)</i>
+                        </label>
+                    </div>
+
+                    <small class="form-control-feedback g-color-red" v-if="errors.first('pay_mode')">{{ errors.first('pay_mode') }}</small>
                 </div>
             </div>
             <!-- End Columned Radios -->
 
-            <h5 class="g-mb-20">Личная информация</h5>
+            <h5 class="g-my-20">Личная информация</h5>
             <div class="g-mb-30 row">
                 <div class="form-group g-mb-10 col-12" :class="{'u-has-error-v1': errors.first('username')}">
                     <label for="username">Имя *</label>
@@ -219,7 +231,7 @@
         data() {
             return {
                 deliveryMode: 'self',
-                payMode: 'cash',
+                payMode: '',
                 username: '',
                 userphone: '',
                 useremail: '',
