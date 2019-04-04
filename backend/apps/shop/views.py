@@ -5,9 +5,10 @@ from django.http import JsonResponse, Http404
 from django.contrib import messages
 from django.conf import settings
 from django.shortcuts import redirect, reverse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.utils.decorators import method_decorator
 from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings, CardPayment
-from .utils import create_robokassa_url, send_order_email_to_client, get_robokassa_sum
+from .utils import create_robokassa_url, send_order_email_to_client
 import json
 from hashlib import sha512
 
@@ -68,6 +69,10 @@ class CartView(TemplateView):
             context['delivery_price'] = 100
         context['delivery_discount_from'] = delivery_settings.price_discount_from
         return context
+
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
 @require_POST

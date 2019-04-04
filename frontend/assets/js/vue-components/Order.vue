@@ -290,7 +290,7 @@
                                 EventBus.$emit('CLEAN-CART', location.href = href);
                             })
                             .catch(e => {
-                                this.errors.push(e);
+                                // this.errors.push(e);
                             })
                     }
                 });
