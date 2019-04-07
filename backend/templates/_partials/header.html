@@ -4,7 +4,7 @@
         class="u-header u-header--static u-header--show-hide u-header--change-appearance"
         data-header-fix-moment="500"
         data-header-fix-effect="slide">
-    <div class="u-header__section u-header__section--dark g-bg-blue-gray g-transition-0_3"
+    <div class="u-header__section u-header__section--dark g-bg-blue-gray g-transition-0_3 g-py-10"
          data-header-fix-moment-exclude="g-py-10"
          data-header-fix-moment-classes="g-py-0">
         <nav class="navbar navbar-expand-lg g-py-0">
@@ -24,11 +24,18 @@
             </button>
             <!-- End Responsive Toggle Button -->
 
-            <!-- Logo -->
-            <a href="/" class="navbar-brand g-pt-5">
-                <img src="{% static 'img/logo/logo.png' %}" alt="Logo">
-            </a>
-            <!-- End Logo -->
+            <div>
+                <!-- Logo -->
+                <a href="/" class="navbar-brand">
+                  <img src="{% static "img/logo/logo-mobile.png" %}" alt="Logo">
+                </a>
+                <!-- End Logo -->
+
+                <button type="button" id="sidebarCollapse" class="btn btn-md u-btn-darkred g-ml-30">
+                    <i class="fa fa-align-left"></i>
+                    <span>Меню</span>
+                </button>
+            </div>
 
             <!-- Navigation -->
             <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--sm"

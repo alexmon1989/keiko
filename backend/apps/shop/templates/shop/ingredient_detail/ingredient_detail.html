@@ -3,62 +3,51 @@
 {% load shop_extras %}
 
 {% block content %}
-    <div class="container-fluid g-px-0">
-        <div class="row no-gutters">
-            <div class="col-md-2 mt-0 g-bg-dark-gray ">
-                {% include '_partials/sidebar.html' %}
-            </div>
-            <div class="col-md-10 g-color-white">
-                <div class="g-pa-20">
-                    <h1>{{ ingredient.title }}</h1>
-                </div>
+    <div class="g-pa-20">
+        <h1>{{ ingredient.title }}</h1>
+    </div>
 
-                <div class="row g-mb-30 no-gutters">
-                    <div class="col">
-                        <div class="g-bg-gray-dark-v2 g-pt-20 g-px-20 g-pb-10">
-                            <p class="g-font-size-16">Сортировать по:&nbsp;&nbsp;<a href="#">Название</a>&nbsp;&nbsp;<a
-                                    href="#">Цена</a></p>
+    <div class="row g-mb-30 no-gutters">
+        <div class="col">
+            <div class="g-bg-gray-dark-v2 g-pt-20 g-px-20 g-pb-10">
+                <p class="g-font-size-16">Сортировать по:&nbsp;&nbsp;<a href="#">Название</a>&nbsp;&nbsp;<a
+                        href="#">Цена</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-mb-40 g-px-20 no-gutters">
+        {% for product in products %}
+            <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2dot4 g-pt-10 product">
+                <div class="d-flex flex-column h-100">
+                    <div class="g-px-25 g-mt-15">
+                        <a href="{{ product.get_absolute_url }}">
+                            {% markers product=product %}
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
+                            {% else %}
+                                <img src="{% static 'img/no-image.png' %}" alt="" class="img-fluid">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="g-px-25 g-mt-15">
+                        <h3 class="g-font-size-16"><a href="{{ product.get_absolute_url }}" class="g-color-white g-color-primary--hover">{{ product }}</a></h3>
+                    </div>
+                    <div class="g-px-25 g-mt-15 g-mb-5 g-font-size-12 product__description text-justify">
+                        {{ product.description|default_if_none:""|safe }}
+                    </div>
+                    <div class="g-mb-15 g-px-25 product__price mt-auto">
+                        <div class="row">
+                            <div class="col-8 d-flex align-items-center g-font-size-18">
+                                <span>{{ product.price|floatformat:"0" }}</span> <span class="g-pl-5"><i class="fa fa-rub"></i></span>
+                            </div>
+                            <div class="col-4">
+                                <cart-actions :product="{{ product.get_cart_data }}" :cart="cart" />
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row g-mb-40 g-px-20 no-gutters">
-                    {% for product in products %}
-                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2dot4 g-pt-10 product">
-                            <div class="d-flex flex-column h-100">
-                                <div class="g-px-25 g-mt-15">
-                                    <a href="{{ product.get_absolute_url }}">
-                                        {% markers product=product %}
-                                        {% if product.image %}
-                                            <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
-                                        {% else %}
-                                            <img src="{% static 'img/no-image.png' %}" alt="" class="img-fluid">
-                                        {% endif %}
-                                    </a>
-                                </div>
-                                <div class="g-px-25 g-mt-15">
-                                    <h3 class="g-font-size-16"><a href="{{ product.get_absolute_url }}" class="g-color-white g-color-primary--hover">{{ product }}</a></h3>
-                                </div>
-                                <div class="g-px-25 g-mt-15 g-mb-5 g-font-size-12 product__description text-justify">
-                                    {{ product.description|default_if_none:""|safe }}
-                                </div>
-                                <div class="g-mb-15 g-px-25 product__price mt-auto">
-                                    <div class="row">
-                                        <div class="col-8 d-flex align-items-center g-font-size-18">
-                                            <span>{{ product.price|floatformat:"0" }}</span> <span class="g-pl-5"><i class="fa fa-rub"></i></span>
-                                        </div>
-                                        <div class="col-4">
-                                            <cart-actions :product="{{ product.get_cart_data }}" :cart="cart" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-
-                {% include '_partials/footer.html' %}
             </div>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}

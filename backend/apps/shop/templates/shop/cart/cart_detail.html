@@ -2,25 +2,15 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-fluid g-px-0">
-        <div class="row no-gutters">
-            <div class="col-md-2 mt-0 g-bg-dark-gray ">
-                {% include '_partials/sidebar.html' %}
-            </div>
-            <div class="col-md-10 g-color-white">
-                <div class="g-pa-20">
-                    <h1>Корзина</h1>
-                </div>
+    <div class="g-color-white">
+        <div class="g-pa-20">
+            <h1>Корзина</h1>
+        </div>
 
-                <div class="g-pa-15 g-mb-70 g-bg-gray-dark-v2">
-                    <order :cart="cart" :delivery-price="{{ delivery_price|stringformat:"i" }}" :delivery-discount-from="{{ delivery_discount_from }}"/>
-                </div>
-
-                {% include '_partials/footer.html' %}
-            </div>
+        <div class="g-pa-15 g-bg-gray-dark-v2">
+            <order :cart="cart" :delivery-price="{{ delivery_price|stringformat:"i" }}" :delivery-discount-from="{{ delivery_discount_from }}"/>
         </div>
     </div>
-
 
     <!-- Demo modal window -->
     <div id="modal1" class="text-left g-max-width-600 g-overflow-y-auto g-pa-20 g-bg-black g-color-white-opacity-0_9"

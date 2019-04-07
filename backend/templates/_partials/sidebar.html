@@ -1,12 +1,24 @@
 {% load shop_extras %}
 {% load staticfiles %}
 
-<div class="sidebar g-color-white">
+<div class="sidebar g-color-white js-scrollbar">
     <div class="row no-gutters g-py-20 g-bg-blue-gray">
+        <div class="col-9 g-pb-30 g-pl-20">
+            <a href="/"><img src="{% static "img/logo/logo.png" %}" alt="Keikorolls"></a>
+        </div>
+
+        <div class="col-3 d-flex justify-content-center g-pt-20">
+            <a class="g-color-white g-font-size-28 g-color-primary--hover"
+               id="close-menu-btn"
+               href="#"
+               title="Свернуть меню"
+            ><i class="fa fa-times-circle"></i></a>
+        </div>
+
         <h2 class="h5 text-uppercase g-pl-20 g-mb-20">Меню доставки</h2>
 
         <!-- Nav tabs -->
-        <ul class="nav u-nav-v5-1 u-nav-primary g-pl-15" role="tablist"
+        <ul class="nav u-nav-v5-1 u-nav-primary g-px-20 g-px-15--md" role="tablist"
             data-target="nav-5-1-primary-hor-center" data-tabs-mobile-type="slide-up-down"
             data-btn-classes="btn btn-md btn-block u-btn-outline-primary">
             <li class="nav-item">
@@ -42,7 +54,7 @@
                     </div>
                     <div class="col-8 px-0 align-self-center">
                         <a href="{{ category.get_absolute_url }}"
-                           class="g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if product.primary_category.pk == category.pk or category.slug|add:"/" in request.path %}active{% endif %}"
+                           class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if product.primary_category.pk == category.pk or category.slug|add:"/" in request.path %}active{% endif %}"
                         >{{ category }}</a>
                     </div>
                 </div>
@@ -63,7 +75,7 @@
                     </div>
                     <div class="col-8 px-0 align-self-center">
                         <a href="{{ ingredient.get_absolute_url }}"
-                           class="g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if ingredient.slug|add:"/" in request.path  %}active{% endif %}"
+                           class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if ingredient.slug|add:"/" in request.path  %}active{% endif %}"
                         >{{ ingredient }}</a>
                     </div>
                 </div>

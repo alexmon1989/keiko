@@ -2,30 +2,21 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-fluid g-px-0">
-        <div class="row no-gutters">
-            <div class="col-md-2 mt-0 g-bg-dark-gray ">
-                {% include '_partials/sidebar.html' %}
+    <div class="g-color-white product-detail">
+        {% include 'shop/product_detail/_partials/breadcrumbs.html' %}
+
+        <div class="row py-3 no-gutters g-mb-40">
+            <div class="d-flex justify-content-center col-md-6">
+                {% include 'shop/product_detail/_partials/product_img.html' %}
             </div>
-            <div class="col-md-10 g-color-white product-detail">
-                {% include 'shop/product_detail/_partials/breadcrumbs.html' %}
+            <div class="col-md-6 g-px-15">
+                {% include 'shop/product_detail/_partials/product_info.html' %}
+            </div>
+        </div>
 
-                <div class="row py-3 no-gutters g-mb-40">
-                    <div class="d-flex justify-content-center col-md-6">
-                        {% include 'shop/product_detail/_partials/product_img.html' %}
-                    </div>
-                    <div class="col-md-6 g-px-15">
-                        {% include 'shop/product_detail/_partials/product_info.html' %}
-                    </div>
-                </div>
-
-                <div class="row no-gutters g-mb-30">
-                    <div class="col-12 g-px-15">
-                        {% include 'shop/product_detail/_partials/related_products.html' %}
-                    </div>
-                </div>
-
-                {% include '_partials/footer.html' %}
+        <div class="row no-gutters g-mb-30">
+            <div class="col-12 g-px-15">
+                {% include 'shop/product_detail/_partials/related_products.html' %}
             </div>
         </div>
     </div>

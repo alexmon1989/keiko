@@ -22,12 +22,22 @@
 </head>
 
 
-<body>
+<body class="g-bg-black ">
 
-<main class="g-bg-black" id="app">
-    {% include '_partials/header.html' %}
+<main class="wrapper" id="app">
+    <!-- Sidebar -->
+    {% include '_partials/sidebar.html' %}
 
-    {% block content %}{% endblock %}
+    <!-- Page Content -->
+    <div class="content">
+        {% include '_partials/header.html' %}
+
+        <div class="g-color-white">
+            {% block content %}{% endblock %}
+        </div>
+
+        {% include '_partials/footer.html' %}
+    </div>
 </main>
 
 <script src="{% static "bundles/app.js" %}"></script>

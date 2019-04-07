@@ -19,7 +19,7 @@
 
         <div id="basket-bar"
              v-show="cart.length > 0"
-             class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-brd-top g-brd-2 g-brd-primary g-color-white-opacity-0_8 g-mt-25--lg g-mt-15--lg--scrolling g-bg-gray-dark-v2"
+             class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-brd-top g-brd-2 g-brd-primary g-color-white-opacity-0_8 g-mt-15--lg g-mt-10--lg--scrolling g-bg-gray-dark-v1"
              aria-labelledby="basket-bar-invoker">
             <div class="js-scrollbar g-height-280">
 
