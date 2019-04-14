@@ -13,7 +13,7 @@ class Slide(TimeStampedModel):
     is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
-        return self.title
+        return self.pk
 
     class Meta:
         verbose_name = 'Слайд'
