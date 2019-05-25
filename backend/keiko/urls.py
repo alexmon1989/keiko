@@ -18,9 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from apps.home.views import index
+from apps.settings.views import RobotsTxtView
 
 urlpatterns = [
     path('', index),
+    path('robots.txt', RobotsTxtView.as_view(), name='robots.txt'),
     path('admin/', admin.site.urls),
     path('shop/', include('apps.shop.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),

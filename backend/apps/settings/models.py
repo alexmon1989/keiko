@@ -10,3 +10,12 @@ class FooterContacts(models.Model):
     class Meta:
         verbose_name = 'Контакты в "футере"'
         verbose_name_plural = 'Контакты в "футере"'
+
+
+class RobotsTxt(models.Model):
+    """Модель для управления содержимым robots.txt"""
+    content = models.TextField('Содержимое robots.txt', default='')
+
+    class Meta:
+        verbose_name = 'Содержимое robots.txt'
+        verbose_name_plural = 'Содержимое robots.txt'
