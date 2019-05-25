@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Список незакрытых заказов
-        orders = Order.ready_orders.filter(status__lt=6).exclude(frontpad_id__isnull=True)
+        orders = Order.ready_orders.filter(status__lt=5).exclude(frontpad_id__isnull=True)
 
         for o in orders:
             params = {
