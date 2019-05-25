@@ -36,3 +36,12 @@ class SocialUrl(models.Model):
     class Meta:
         verbose_name = 'Ссылка на социальную сеть'
         verbose_name_plural = 'Ссылки на социальные сети'
+
+
+class HeaderPhone(models.Model):
+    """Модель для управления значением номера телефона в шапке сайта."""
+    value = models.CharField('Значение', default='', max_length=255)
+
+    class Meta:
+        verbose_name = 'Номер телефона в шапке'
+        verbose_name_plural = 'Номер телефона в шапке'

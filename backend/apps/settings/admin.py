@@ -1,6 +1,6 @@
 from django.contrib import admin
 from singlemodeladmin import SingleModelAdmin
-from .models import FooterContacts, RobotsTxt, SocialUrl
+from .models import FooterContacts, RobotsTxt, SocialUrl, HeaderPhone
 from apps.shop.models import DeliverySettings, CardPayment
 
 
@@ -21,6 +21,11 @@ class CardPaymentAdmin(SingleModelAdmin):
 
 @admin.register(RobotsTxt)
 class RobotsTxtAdmin(SingleModelAdmin):
+    pass
+
+
+@admin.register(HeaderPhone)
+class HeaderPhoneAdmin(SingleModelAdmin):
     pass
 
 

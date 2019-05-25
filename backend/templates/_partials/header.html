@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load keiko_extras %}
 
 <header id="js-header"
         class="u-header u-header--static u-header--show-hide u-header--change-appearance"
@@ -42,7 +43,7 @@
                  id="navBar">
                 <ul class="navbar-nav text-uppercase g-font-weight-600 g-font-size-14 mr-auto">
                     <li class="nav-item g-ml-40--lg g-mr-80--lg">
-                        <a href="#!" class="nav-link px-0">+7 (8672) 29-22-55</a>
+                        <a href="tel:{% header_phone %}" class="nav-link px-0">{% header_phone %}</a>
                     </li>
                     <li class="nav-item g-mx-80--lg">
                         <a href="#!" class="nav-link px-0">Акции</a>
