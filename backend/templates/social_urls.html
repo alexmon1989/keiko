@@ -1,0 +1,11 @@
+{% if urls %}
+    <ul class="list-inline text-center text-md-right mb-0">
+        {% for url in urls %}
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="{{ url.social_network_title }}">
+                <a href="{{ url.url }}" class="g-color-white-opacity-0_5 g-color-white--hover" target="_blank">
+                    <i class="{{ url.icon_class }}"></i>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

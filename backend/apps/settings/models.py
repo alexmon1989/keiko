@@ -19,3 +19,20 @@ class RobotsTxt(models.Model):
     class Meta:
         verbose_name = 'Содержимое robots.txt'
         verbose_name_plural = 'Содержимое robots.txt'
+
+
+class SocialUrl(models.Model):
+    """Модель для управления ссылками на социальные сети."""
+    social_network_title = models.CharField('Название социальной сети', max_length=255)
+    url = models.URLField('Ссылка')
+    icon_class = models.CharField('CSS-класс иконки', max_length=255, blank=True, default='')
+    weight = models.IntegerField(
+        'Вес', default=1000, help_text='Чем выше вес, тем левее элемент в списке ссылок на соц. сети.')
+    is_enabled = models.BooleanField('Включено', default=True)
+
+    def __str__(self):
+        return self.social_network_title
+
+    class Meta:
+        verbose_name = 'Ссылка на социальную сеть'
+        verbose_name_plural = 'Ссылки на социальные сети'

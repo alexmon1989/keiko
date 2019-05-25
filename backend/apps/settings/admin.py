@@ -1,6 +1,6 @@
 from django.contrib import admin
 from singlemodeladmin import SingleModelAdmin
-from .models import FooterContacts, RobotsTxt
+from .models import FooterContacts, RobotsTxt, SocialUrl
 from apps.shop.models import DeliverySettings, CardPayment
 
 
@@ -22,3 +22,13 @@ class CardPaymentAdmin(SingleModelAdmin):
 @admin.register(RobotsTxt)
 class RobotsTxtAdmin(SingleModelAdmin):
     pass
+
+
+@admin.register(SocialUrl)
+class SocialUrlAdmin(admin.ModelAdmin):
+    """Класс для описания интерфейса администрирования модели SocialUrl."""
+    ordering = ('-weight',)
+    list_display = ('social_network_title', 'url', 'weight', 'is_enabled')
+    list_editable = ('weight', 'is_enabled',)
+    list_filter = ('is_enabled',)
+    search_fields = ('social_network_title',)
