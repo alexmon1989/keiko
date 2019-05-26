@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Контакты - Keikorolls.ru{% endblock %}
+{% block title %}{{ contacts.meta_title|default:"Контакты - Keikorolls.ru" }}{% endblock %}
+{% block keywords %}{{ contacts.meta_keywords|default:"" }}{% endblock %}
+{% block description %}{{ contacts.meta_description|default:"" }}{% endblock %}
 
 {% block content %}
     <div class="g-pa-20">
-        <h1>Контакты</h1>
+        <h1>{{ contacts.meta_h1|default:"Контакты" }}</h1>
     </div>
 
     <div class="g-color-white contacts">

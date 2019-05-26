@@ -5,4 +5,12 @@ from .models import ContactsModel
 
 @admin.register(ContactsModel)
 class ContactsModelAdmin(SingleModelAdmin):
-    pass
+    fieldsets = (
+        (None, {
+            'fields': ('map_code', 'contacts_code')
+        }),
+        ('SEO опции', {
+            'classes': ('collapse',),
+            'fields': ('meta_h1', 'meta_title', 'meta_keywords', 'meta_description'),
+        }),
+    )
