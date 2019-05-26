@@ -1,14 +1,14 @@
 from django.shortcuts import reverse
 from django.db import models
 from django.db.models import Q
-from keiko.utils import TimeStampedModel
+from keiko.utils import TimeStampedModel, SeoModel
 from ckeditor.fields import RichTextField
 import json
 import uuid
 from colorfield.fields import ColorField
 
 
-class Category(TimeStampedModel):
+class Category(TimeStampedModel, SeoModel):
     """Модель категории продукта."""
     title = models.CharField('Название', max_length=255)
     slug = models.SlugField()

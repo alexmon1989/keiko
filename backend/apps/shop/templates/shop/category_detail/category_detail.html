@@ -2,10 +2,14 @@
 {% load static %}
 {% load shop_extras %}
 
+{% block title %}{% if category.meta_title %}{{ category.meta_title }}{% else %}{{ category.title }} - Keikorolls.ru{% endif %}{% endblock %}
+{% block keywords %}{{ category.meta_keywords|default:"" }}{% endblock %}
+{% block description %}{{ category.meta_description|default:"" }}{% endblock %}
+
 {% block content %}
     <div class="category-detail">
         <div class="g-pa-20">
-            <h1>{{ category.title }}</h1>
+            <h1>{{ category.meta_h1|default:category.title }}</h1>
         </div>
 
         {% include 'shop/category_detail/_partials/breadcrumbs.html' %}
