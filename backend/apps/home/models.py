@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-from keiko.utils import TimeStampedModel
+from keiko.utils import TimeStampedModel, SeoModel
 
 
 class Slide(TimeStampedModel):
@@ -18,3 +18,9 @@ class Slide(TimeStampedModel):
     class Meta:
         verbose_name = 'Слайд'
         verbose_name_plural = 'Слайдер'
+
+
+class Page(SeoModel):
+    class Meta:
+        verbose_name = 'Данные страницы'
+        verbose_name_plural = 'Данные страницы'

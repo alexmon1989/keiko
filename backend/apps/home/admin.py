@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Slide
+from singlemodeladmin import SingleModelAdmin
+from .models import Slide, Page
 
 
 @admin.register(Slide)
@@ -10,3 +11,8 @@ class SlideAdmin(admin.ModelAdmin):
     list_editable = ('weight', 'is_enabled',)
     list_filter = ('is_enabled',)
     search_fields = ('title',)
+
+
+@admin.register(Page)
+class Page(SingleModelAdmin):
+    exclude = ('meta_h1', )

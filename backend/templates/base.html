@@ -9,6 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="keywords" content="{% block keywords %}{% endblock %}">
+    <meta name="description" content="{% block description %}{% endblock %}">
     {% block extra_meta %}{% endblock %}
 
     <!-- Favicon -->
@@ -21,8 +23,7 @@
     <link rel="stylesheet" href="{% static "bundles/styles.css" %}">
 </head>
 
-
-<body class="g-bg-black ">
+<body class="g-bg-black">
 
 <main class="wrapper" id="app">
     <!-- Sidebar -->
