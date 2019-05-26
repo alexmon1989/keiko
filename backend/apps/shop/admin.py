@@ -42,6 +42,15 @@ class IngredientAdmin(admin.ModelAdmin):
     list_filter = ('is_enabled',)
     search_fields = ('title',)
     prepopulated_fields = {"slug": ("title",)}
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'weight', 'image', 'is_enabled')
+        }),
+        ('SEO опции', {
+            'classes': ('collapse',),
+            'fields': ('meta_h1', 'meta_title', 'meta_keywords', 'meta_description'),
+        }),
+    )
 
 
 @admin.register(Property)

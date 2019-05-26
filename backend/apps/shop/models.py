@@ -39,7 +39,7 @@ class Property(TimeStampedModel):
         verbose_name_plural = 'Свойства'
 
 
-class Ingredient(TimeStampedModel):
+class Ingredient(TimeStampedModel, SeoModel):
     """Модель свойства продукта."""
     title = models.CharField('Название', max_length=255)
     slug = models.SlugField()

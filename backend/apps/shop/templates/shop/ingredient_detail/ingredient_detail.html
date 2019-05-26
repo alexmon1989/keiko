@@ -2,10 +2,14 @@
 {% load static %}
 {% load shop_extras %}
 
+{% block title %}{% if ingredient.meta_title %}{{ ingredient.meta_title }}{% else %}{{ ingredient.title }} - Keikorolls.ru{% endif %}{% endblock %}
+{% block keywords %}{{ ingredient.meta_keywords|default:"" }}{% endblock %}
+{% block description %}{{ ingredient.meta_description|default:"" }}{% endblock %}
+
 {% block content %}
     <div class="ingredient-detail">
         <div class="g-pa-20">
-            <h1>{{ ingredient.title }}</h1>
+            <h1>{{ ingredient.meta_h1|default:ingredient.title }}</h1>
         </div>
 
         {% include 'shop/ingredient_detail/_partials/breadcrumbs.html' %}
