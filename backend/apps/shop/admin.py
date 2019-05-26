@@ -32,6 +32,31 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title',)
     prepopulated_fields = {"slug": ("title",)}
 
+    fieldsets = (
+        (None, {
+            'fields': (
+                'title',
+                'slug',
+                'weight',
+                'image',
+                'description',
+                'primary_category',
+                'categories',
+                'properties',
+                'ingredients',
+                'price',
+                'related_products',
+                'markers',
+                'frontpad_id',
+                'is_enabled',
+            )
+        }),
+        ('SEO опции', {
+            'classes': ('collapse',),
+            'fields': ('meta_h1', 'meta_title', 'meta_keywords', 'meta_description'),
+        }),
+    )
+
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):

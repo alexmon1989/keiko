@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{% if product.meta_title %}{{ product.meta_title }}{% else %}{{ product.title }} - Keikorolls.ru{% endif %}{% endblock %}
+{% block keywords %}{{ product.meta_keywords|default:"" }}{% endblock %}
+{% block description %}{{ product.meta_description|default:"" }}{% endblock %}
+
 {% block content %}
     <div class="g-color-white product-detail">
         {% include 'shop/product_detail/_partials/breadcrumbs.html' %}

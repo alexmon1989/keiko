@@ -1,4 +1,4 @@
-<h1 class="pt-4 g-pt-0--md">{{ product.title }}</h1>
+<h1 class="pt-4 g-pt-0--md">{{ product.meta_h1|default:product.title }}</h1>
 
 <div class="g-pt-20 g-font-size-24">
     <span>{{ product.price|floatformat:"0" }}</span><span class="g-pl-5"><i
