@@ -7,5 +7,5 @@ class ContactsModel(SeoModel):
     contacts_code = models.TextField('Код контактных данных (HTML)', default='')
 
     class Meta:
-        verbose_name = 'Контаты'
-        verbose_name_plural = 'Контаты'
+        verbose_name = 'Контакты'
+        verbose_name_plural = 'Контакты'
