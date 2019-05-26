@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты - Keikorolls.ru{% endblock %}
+
+{% block content %}
+    <div class="g-pa-20">
+        <h1>Контакты</h1>
+    </div>
+
+    <div class="g-color-white contacts">
+        {% include 'contacts/_partials/breadcrumbs.html' %}
+    </div>
+
+    <section class="container g-pt-40 g-pb-40">
+        <div class="row justify-content-between">
+            <div class="col-md-7 g-mb-60">
+                {{ contacts.map_code|safe }}
+            </div>
+
+            <div class="col-md-4">
+                {{ contacts.contacts_code|safe }}
+
+                {% if social_links %}
+                    <!-- Figure Social Icons -->
+                    <ul class="list-inline">
+                        {% for link in social_links %}
+                            <li class="list-inline-item" data-toggle="tooltip" data-placement="bottom" title="{{ link.social_network_title }}">
+                                <a class="u-icon-v1 g-color-gray-light-v5 g-bg-gray-dark-v3 g-color-white--hover g-bg-primary--hover rounded-circle"
+                                   href="{{ link.url }}"
+                                   target="_blank">
+                                    <i class="g-font-size-default {{ link.icon_class }}"></i>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- End Figure Social Icons -->
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -25,5 +25,6 @@ urlpatterns = [
     path('robots.txt', RobotsTxtView.as_view(), name='robots.txt'),
     path('admin/', admin.site.urls),
     path('shop/', include('apps.shop.urls')),
+    path('contacts/', include('apps.contacts.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
