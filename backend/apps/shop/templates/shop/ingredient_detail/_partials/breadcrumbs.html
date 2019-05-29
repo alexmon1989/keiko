@@ -1,4 +1,17 @@
-<div class="mt-1 mb-5 py-4 breadcrumbs d-flex justify-content-end col-12">
-    <div><a href="/">Главная</a><i class="px-2">/</i></div>
-    <div>{{ ingredient.title }}</div>
+<div class="mt-1 mb-5 py-4 breadcrumbs d-flex justify-content-end col-12"
+     itemscope itemtype="http://schema.org/BreadcrumbList">
+    <div itemprop="itemListElement"
+         itemscope
+         itemtype="http://schema.org/ListItem"
+    ><a href="/" itemprop="item"><span itemprop="name">Главная</span></a><i class="px-2">/</i>
+        <meta itemprop="position" content="1"/>
+    </div>
+    <div itemprop="itemListElement"
+         itemscope
+         itemtype="http://schema.org/ListItem"
+    ><a href="{{ ingredient.get_absolute_url }}"
+        class="g-color-white g-text-underline--none--hover"
+        itemprop="item"><span itemprop="name">{{ ingredient.title }}</span></a>
+        <meta itemprop="position" content="2"/>
+    </div>
 </div>

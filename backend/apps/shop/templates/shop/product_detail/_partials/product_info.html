@@ -1,12 +1,19 @@
-<h1 class="pt-4 g-pt-0--md">{{ product.meta_h1|default:product.title }}</h1>
+<h1 class="pt-4 g-pt-0--md" itemprop="name">{{ product.meta_h1|default:product.title }}</h1>
 
-<div class="g-pt-20 g-font-size-24">
-    <span>{{ product.price|floatformat:"0" }}</span><span class="g-pl-5"><i
+<div style="display: none">
+    <div itemprop="sku">{{ product.frontpad_id }}</div>
+    <div itemprop="brand">Keikorolls</div>
+    <div itemprop="category">{{ product.primary_category }}</div>
+</div>
+
+<div class="g-pt-20 g-font-size-24" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <span itemprop="price" content="{{ product.price|floatformat:"0" }}">{{ product.price|floatformat:"0" }}</span><span
+        class="g-pl-5" itemprop="priceCurrency" content="RUB"><i
         class="fa fa-rub"></i></span>
 </div>
 
 <div class="g-pt-5 d-flex g-mb-50 g-width-100">
-    <cart-actions :product="{{ product.get_cart_data }}" :cart="cart" />
+    <cart-actions :product="{{ product.get_cart_data }}" :cart="cart"/>
 </div>
 
 <hr class="g-brd-gray-dark-v3">
@@ -30,7 +37,7 @@
 <div id="nav-5-1-accordion-primary-hor-center" class="tab-content g-pt-20--md">
     <div class="tab-pane fade show active g-mb-20" id="nav-5-1-accordion-primary-hor-center--1"
          role="tabpanel">
-        {{ product.description|safe }}
+        <div itemprop="description">{{ product.description|safe }}</div>
 
         {% for property in product.properties.all %}
             <span class="badge g-bg-gray-dark-v2 g-pa-5 g-mr-5 g-mt-5 g-color-white-opacity-0_8">{{ property }}</span>

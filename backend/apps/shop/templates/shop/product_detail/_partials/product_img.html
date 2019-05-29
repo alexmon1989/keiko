@@ -5,9 +5,9 @@
     {% markers product=product %}
 
     {% if product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid">
+        <img src="{{ product.image.url }}" alt="{{ product }}" class="img-fluid" itemprop="image">
     {% else %}
         <img src="{% static 'img/no-image.png' %}" alt=""
-             class="img-fluid">
+             class="img-fluid" itemprop="image">
     {% endif %}
 </div>
