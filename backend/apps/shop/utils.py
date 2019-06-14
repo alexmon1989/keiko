@@ -37,7 +37,7 @@ def create_robokassa_url(order):
     mrh_login = settings.ROBOKASSA_MERCHANT_LOGIN
     mrh_pass1 = settings.ROBOKASSA_TEST_PASSWORD1 if settings.ROBOKASSA_IS_TEST else settings.ROBOKASSA_PASSWORD1
     inv_id = order.pk
-    inv_desc = f"Оплата заказа №{order.pk} в keikorolls.ru"
+    inv_desc = f"Оплата заказа №{order.pk} в KEIKO"
     out_summ = order.get_price_total()
     is_test = int(settings.ROBOKASSA_IS_TEST)
 
