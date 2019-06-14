@@ -2,9 +2,9 @@
 {% load static %}
 {% load shop_extras %}
 
-{% block title %}{% if category.meta_title %}{{ category.meta_title }}{% else %}{{ category.title }} - KEIKO{% endif %}{% endblock %}
+{% block title %}{% if category.meta_title %}{{ category.meta_title }}{% else %}{{ category.title }} с доставкой в городе Владикавказ – KEIKO{% endif %}{% endblock %}
 {% block keywords %}{{ category.meta_keywords|default:"" }}{% endblock %}
-{% block description %}{{ category.meta_description|default:"" }}{% endblock %}
+{% block description %}{% if category.meta_description %}{{ category.meta_description }}{% else %}Заказать {{ category.title }} в ресторане японской кухни KEIKO. Заказы от 800 рублей доставляем бесплатно 📞 +7 (8672) 29-22-55 звоните!{% endif %}{% endblock %}
 
 {% block content %}
     <div class="category-detail">
