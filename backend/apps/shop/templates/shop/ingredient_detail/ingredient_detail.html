@@ -28,10 +28,9 @@
                                 {% endif %}
                             </a>
                         </div>
-                        <div class="g-px-25 g-mt-15">
-                            <h3 class="g-font-size-16"><a href="{{ product.get_absolute_url }}"
-                                                          class="g-color-white g-color-primary--hover">{{ product }}</a>
-                            </h3>
+                        <div class="g-px-25 g-mt-15 g-font-size-16">
+                            <a href="{{ product.get_absolute_url }}"
+                               class="g-color-white g-color-primary--hover">{{ product }}</a>
                         </div>
                         <div class="g-px-25 g-mt-15 g-mb-5 g-font-size-12 product__description text-justify">
                             {{ product.description|default_if_none:""|safe }}
