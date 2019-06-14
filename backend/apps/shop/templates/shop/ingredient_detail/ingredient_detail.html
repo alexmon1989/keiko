@@ -2,9 +2,10 @@
 {% load static %}
 {% load shop_extras %}
 
-{% block title %}{% if ingredient.meta_title %}{{ ingredient.meta_title }}{% else %}{{ ingredient.title }} - KEIKO{% endif %}{% endblock %}
+{% block title %}{% if ingredient.meta_title %}{{ ingredient.meta_title }}{% else %}Суши и роллы с {{ ingredient.tags }} доставка Владикавказ – KEIKO{% endif %}{% endblock %}
 {% block keywords %}{{ ingredient.meta_keywords|default:"" }}{% endblock %}
-{% block description %}{{ ingredient.meta_description|default:"" }}{% endblock %}
+{% block description %}{% if ingredient.meta_description %}{{ ingredient.meta_description }}{% else %}Заказать суши с {{ ingredient.tags }} в ресторане KEIKO. Японская кухня с бесплатной доставкой от 800 рублей в городе Владикавказ 📞 +7 (8672) 29-22-55 звоните!{% endif %}{% endblock %}
+
 
 {% block content %}
     <div class="ingredient-detail">

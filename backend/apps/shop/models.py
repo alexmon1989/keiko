@@ -45,6 +45,7 @@ class Ingredient(TimeStampedModel, SeoModel):
     slug = models.SlugField()
     weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке ингредиентов.')
     image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 100px * 64px')
+    tags = models.CharField('Теги', max_length=255, help_text='Необходимо для генерации Title и Description')
     is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
