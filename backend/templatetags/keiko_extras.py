@@ -23,3 +23,8 @@ def social_urls():
 def header_phone():
     phone, created = HeaderPhone.objects.get_or_create()
     return phone.value
+
+
+@register.filter(name='cut')
+def cut(value, arg):
+    return value.replace(arg, '')
