@@ -65,7 +65,10 @@
                             {% endif %}
                         </div>
                         {% if r_product.image %}
-                            <img src="{{ r_product.image.url }}" alt="{{ r_product }}" class="img-fluid">
+                            <img src="{{ r_product.image.url }}"
+                                 alt="{{ r_product }}"
+                                 title="{{ r_product }}"
+                                 class="img-fluid">
                         {% else %}
                             <img src="{% static 'img/no-image.png' %}" alt="" class="img-fluid">
                         {% endif %}
