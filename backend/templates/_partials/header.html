@@ -27,9 +27,11 @@
 
             <div>
                 <!-- Logo -->
-                <a href="/" class="navbar-brand">
-                  <img src="{% static "img/logo/logo-mobile.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы">
-                </a>
+                {% if request.resolver_match.view_name != 'home' %}
+                    <a href="/" class="navbar-brand"><img src="{% static "img/logo/logo-mobile.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы"></a>
+                {% else %}
+                    <img src="{% static "img/logo/logo-mobile.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы">
+                {% endif %}
                 <!-- End Logo -->
 
                 <button type="button" id="sidebarCollapse" class="btn btn-md u-btn-darkred g-ml-30">

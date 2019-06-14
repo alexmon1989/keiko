@@ -4,7 +4,11 @@
 <div class="sidebar g-color-white js-scrollbar">
     <div class="row no-gutters g-py-20 g-bg-blue-gray">
         <div class="col-9 g-pb-30 g-pl-20">
-            <a href="/"><img src="{% static "img/logo/logo.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы"></a>
+            {% if request.resolver_match.view_name != 'home' %}
+                <a href="/"><img src="{% static "img/logo/logo.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы"></a>
+            {% else %}
+                <img src="{% static "img/logo/logo.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы">
+            {% endif %}
         </div>
 
         <div class="col-3 d-flex justify-content-center g-pt-20">
