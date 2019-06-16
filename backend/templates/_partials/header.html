@@ -55,7 +55,11 @@
                         <a href="#!" class="nav-link px-0">О доставке</a>
                     </li>
                     <li class="nav-item g-mx-80--lg">
-                        <a href="{% url 'contacts:contacts' %}" class="nav-link px-0">Контакты</a>
+                        {% if request.resolver_match.view_name != 'contacts:contacts' %}
+                            <a href="{% url 'contacts:contacts' %}" class="nav-link px-0">Контакты</a>
+                        {% else %}
+                            <span class="nav-link px-0 active">Контакты</span>
+                        {% endif %}
                     </li>
                 </ul>
             </div>

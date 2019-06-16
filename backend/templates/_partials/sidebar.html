@@ -57,9 +57,13 @@
                         </a>
                     </div>
                     <div class="col-8 px-0 align-self-center">
-                        <a href="{{ category.get_absolute_url }}"
-                           class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if product.primary_category.pk == category.pk or category.slug|add:"/" in request.path %}active{% endif %}"
-                        >{{ category }}</a>
+                        {% if category.slug|add:"/" in request.path %}
+                            <span class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover active">{{ category }}</span>
+                        {% else %}
+                            <a href="{{ category.get_absolute_url }}"
+                               class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if product.primary_category.pk == category.pk or category.slug|add:"/" in request.path %}active{% endif %}"
+                            >{{ category }}</a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
@@ -78,9 +82,13 @@
                         </a>
                     </div>
                     <div class="col-8 px-0 align-self-center">
-                        <a href="{{ ingredient.get_absolute_url }}"
-                           class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if ingredient.slug|add:"/" in request.path  %}active{% endif %}"
-                        >{{ ingredient }}</a>
+                        {% if ingredient.slug|add:"/" in request.path %}
+                            <span class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover active">{{ ingredient }}</span>
+                        {% else %}
+                            <a href="{{ ingredient.get_absolute_url }}"
+                               class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover"
+                            >{{ ingredient }}</a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
