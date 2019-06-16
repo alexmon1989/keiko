@@ -1,7 +1,9 @@
 {% load staticfiles %}
+{% load settings_extras %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% analytics as analytics %}{{ analytics|safe }}
     <!-- Title -->
     <title>{% block title %}Суши во Владикавказе - KEIKO{% endblock %}</title>
 

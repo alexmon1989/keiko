@@ -1,7 +1,12 @@
 from django.contrib import admin
 from singlemodeladmin import SingleModelAdmin
-from .models import FooterContacts, RobotsTxt, SocialUrl, HeaderPhone
+from .models import FooterContacts, RobotsTxt, SocialUrl, HeaderPhone, Analytics
 from apps.shop.models import DeliverySettings, CardPayment
+
+
+@admin.register(Analytics)
+class Analytics(SingleModelAdmin):
+    pass
 
 
 @admin.register(FooterContacts)

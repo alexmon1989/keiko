@@ -45,3 +45,12 @@ class HeaderPhone(models.Model):
     class Meta:
         verbose_name = 'Номер телефона в шапке'
         verbose_name_plural = 'Номер телефона в шапке'
+
+
+class Analytics(models.Model):
+    """Модель для управления кодом аналитики."""
+    code = models.TextField('Код аналитики', default='')
+
+    class Meta:
+        verbose_name = 'HTML-код аналитики'
+        verbose_name_plural = 'HTML-код аналитики'
