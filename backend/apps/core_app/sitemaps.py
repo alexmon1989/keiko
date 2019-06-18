@@ -3,22 +3,26 @@ from django.shortcuts import reverse
 from apps.shop.models import Category, Ingredient, Product
 
 
-class CategorySitemap(Sitemap):
+class MySitemap(Sitemap):
+    protocol = "https"
+
+
+class CategorySitemap(MySitemap):
     def items(self):
         return Category.objects.filter(is_enabled=True)
 
 
-class IngredientSitemap(Sitemap):
+class IngredientSitemap(MySitemap):
     def items(self):
         return Ingredient.objects.filter(is_enabled=True)
 
 
-class ProductSitemap(Sitemap):
+class ProductSitemap(MySitemap):
     def items(self):
         return Product.objects.filter(is_enabled=True)
 
 
-class StaticViewSitemap(Sitemap):
+class StaticViewSitemap(MySitemap):
 
     def items(self):
         return (
