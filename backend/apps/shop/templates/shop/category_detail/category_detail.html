@@ -55,5 +55,13 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% if category.text %}
+            <div class="row g-color-gray-light-v1 g-mb-30 no-gutters">
+                <div class="col-md-12 g-px-20">
+                    {{ category.text|safe }}
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

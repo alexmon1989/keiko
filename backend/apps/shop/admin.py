@@ -13,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'weight', 'image', 'is_enabled')
+            'fields': ('title', 'slug', 'weight', 'image', 'text', 'is_enabled')
         }),
         ('SEO опции', {
             'classes': ('collapse',),

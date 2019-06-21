@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Q
 from keiko.utils import TimeStampedModel, SeoModel
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 import json
 import uuid
 from colorfield.fields import ColorField
@@ -14,6 +15,7 @@ class Category(TimeStampedModel, SeoModel):
     slug = models.SlugField()
     weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке категорий.')
     image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 100px * 64px')
+    text = RichTextUploadingField('Текст', default='', blank=True, null=True)
     is_enabled = models.BooleanField('Включено', default=True)
 
     def __str__(self):
