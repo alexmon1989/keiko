@@ -7,4 +7,11 @@
 
 {% block content %}
     {% include 'home/_partials/slider.html' %}
+
+    {% if page_data.content %}
+        <div class="g-my-50 g-px-30 g-color-gray-light-v1">
+            {{ page_data.content|safe }}
+        </div>
+    {% endif %}
+
 {% endblock %}

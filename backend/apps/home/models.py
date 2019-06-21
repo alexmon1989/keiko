@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from keiko.utils import TimeStampedModel, SeoModel
 
 
@@ -21,6 +22,8 @@ class Slide(TimeStampedModel):
 
 
 class Page(SeoModel):
+    content = RichTextUploadingField('Текст', default='', blank=True, null=True)
+
     class Meta:
         verbose_name = 'Данные страницы'
         verbose_name_plural = 'Данные страницы'
