@@ -51,5 +51,13 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% if ingredient.text %}
+            <div class="row g-color-gray-light-v1 g-mb-30 no-gutters">
+                <div class="col-md-12 g-px-20">
+                    {{ ingredient.text|safe }}
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

@@ -69,7 +69,7 @@ class IngredientAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'weight', 'image', 'tags', 'is_enabled')
+            'fields': ('title', 'slug', 'weight', 'image', 'tags', 'text', 'is_enabled')
         }),
         ('SEO опции', {
             'classes': ('collapse',),
