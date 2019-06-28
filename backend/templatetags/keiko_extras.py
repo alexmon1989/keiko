@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.sites.models import Site
 from apps.settings.models import FooterContacts, SocialUrl, HeaderPhone
 
 register = template.Library()
@@ -28,3 +29,8 @@ def header_phone():
 @register.filter(name='cut')
 def cut(value, arg):
     return value.replace(arg, '')
+
+
+@register.simple_tag
+def current_domain():
+    return "https://{}".format(Site.objects.get_current().domain)
