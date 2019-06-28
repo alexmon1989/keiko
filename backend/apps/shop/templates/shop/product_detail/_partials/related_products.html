@@ -1,6 +1,6 @@
 {% load static %}
 
-<h3 class="g-mb-40">С этим блюдом заказывают</h3>
+<div class="h3 g-mb-40">С этим блюдом заказывают</div>
 
 {% if related_products.all|length > 0 %}
 
@@ -74,9 +74,9 @@
                         {% endif %}
                     </a>
                 </div>
-                <div class="g-px-25 g-my-15">
-                    <h3 class="g-font-size-16"><a href="{{ r_product.get_absolute_url }}"
-                                                  class="g-color-white g-color-primary--hover">{{ r_product }}</a></h3>
+                <div class="g-px-25 g-my-15 g-font-size-16 h3">
+                    <a href="{{ r_product.get_absolute_url }}"
+                       class="g-color-white g-color-primary--hover">{{ r_product }}</a>
                 </div>
                 <div class="g-mb-15 g-px-25 product__price mt-auto">
                     <div class="row">
