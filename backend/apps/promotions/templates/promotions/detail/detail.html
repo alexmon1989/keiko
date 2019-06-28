@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_extras %}
+
+{% block title %}{% if promotionarticle.meta_title %}{{ promotionarticle.meta_title }}{% else %}
+    {{ promotionarticle.title }} – KEIKO{% endif %}{% endblock %}
+{% block keywords %}{{ promotionarticle.meta_keywords|default:"" }}{% endblock %}
+{% block description %}{{ promotionarticle.meta_description|default:"" }}{% endblock %}
+
+{% block content %}
+    <div class="promotions">
+        <div class="g-pa-20">
+            <h1>{{ promotionarticle.meta_h1|default:promotionarticle.title }}</h1>
+        </div>
+
+        {% include 'promotions/detail/_partials/breadcrumbs.html' %}
+
+        <div class="row g-pb-40 g-px-20 no-gutters">
+            <div class="d-flex col-md-12 g-color-gray-light-v1">
+                <div class="ml-auto">{{ promotionarticle.created_at|date:"j F Y" }}</div>
+            </div>
+
+            <div class="g-mt-25 g-color-white-opacity-0_9">
+                {{ promotionarticle.full_text|default_if_none:""|safe }}
+            </div>
+
+
+            {% if promotionarticle.image %}
+                <div class="g-mt-25">
+                    <img src="{{ promotionarticle.image.url }}"
+                         alt="{{ promotionarticle }}"
+                         title="{{ promotionarticle }}"
+                         class="img-fluid">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

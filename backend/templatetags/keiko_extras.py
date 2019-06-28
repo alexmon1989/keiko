@@ -34,3 +34,10 @@ def cut(value, arg):
 @register.simple_tag
 def current_domain():
     return "https://{}".format(Site.objects.get_current().domain)
+
+
+@register.simple_tag
+def url_replace(request, field, value):
+    dict_ = request.GET.copy()
+    dict_[field] = value
+    return dict_.urlencode()

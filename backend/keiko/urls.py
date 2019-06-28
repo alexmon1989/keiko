@@ -20,13 +20,15 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from apps.home.views import index
 from apps.settings.views import RobotsTxtView
-from apps.core_app.sitemaps import CategorySitemap, StaticViewSitemap, ProductSitemap, IngredientSitemap
+from apps.core_app.sitemaps import (CategorySitemap, StaticViewSitemap, ProductSitemap, IngredientSitemap,
+                                    PromotionArticleSitemap)
 
 sitemaps = {
     'static': StaticViewSitemap,
     'categories': CategorySitemap,
     'ingredients': IngredientSitemap,
     'products': ProductSitemap,
+    'promotions': PromotionArticleSitemap,
 }
 
 urlpatterns = [
@@ -35,6 +37,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', include('apps.shop.urls')),
     path('contacts/', include('apps.contacts.urls')),
+    path('promotions/', include('apps.promotions.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),

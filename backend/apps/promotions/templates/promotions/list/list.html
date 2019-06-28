@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load shop_extras %}
+
+{% block title %}Акции – KEIKO{% endblock %}
+
+{% block content %}
+    <div class="promotions">
+        <div class="g-pa-20">
+            <h1>Акции</h1>
+        </div>
+
+        {% include 'promotions/list/_partials/breadcrumbs.html' %}
+
+        <div class="row g-pb-40 g-px-20 no-gutters">
+            {% for promotion in promotionarticle_list %}
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2dot4 g-pt-10">
+                    <div class="d-flex flex-column h-100">
+                        <div class="g-px-25 g-mt-15">
+                            <a href="{{ promotion.get_absolute_url }}">
+                                {% if promotion.image %}
+                                    <img src="{{ promotion.image.url }}"
+                                         alt="{{ promotion }}"
+                                         title="{{ promotion }}"
+                                         class="img-fluid">
+                                {% else %}
+                                    <img src="{% static 'img/no-image.png' %}"
+                                         alt=""
+                                         class="img-fluid">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="g-px-25 g-mt-25 g-font-size-16 g-color-gray-dark-v5">
+                            {{ promotion.created_at|date:"j F Y" }}
+                        </div>
+                        <div class="g-px-25 g-mt-10 g-font-size-24 g-line-height-1_3">
+                            <a href="{{ promotion.get_absolute_url }}"
+                               class="g-color-white g-color-primary--hover g-brd-bottom g-brd-white g-text-underline--none--hover g-brd-bottom--none--hover"
+                            >{{ promotion }}</a>
+                        </div>
+                        <div class="g-px-25 g-mt-15 g-mb-5 g-font-size-14 g-color-gray-light-v1 text-justify">
+                            {{ promotion.short_text|default_if_none:""|safe }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if page_obj.has_other_pages %}
+                <div class="col-12 g-mt-20">
+                    {% include 'promotions/list/_partials/pagination.html' %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

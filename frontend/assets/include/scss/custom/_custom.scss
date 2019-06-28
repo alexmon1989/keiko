@@ -127,7 +127,7 @@
   }
 }
 
-.product-detail, .order-detail, .contacts, .category-detail, .ingredient-detail {
+.product-detail, .order-detail, .contacts, .category-detail, .ingredient-detail, .promotions {
   .nav-link {
     color: #c0c0c0;
     padding: .15rem 0;
@@ -236,4 +236,13 @@
 .js-tabs-mobile-control {
   margin-right: 20px;
   margin-left: 20px;
+}
+
+.g-brd-bottom {
+  &--none--hover {
+    &:focus,
+    &:hover {
+      border-bottom: none !important;
+    }
+  }
 }

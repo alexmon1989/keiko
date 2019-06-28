@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load keiko_extras %}
+{% load promotions_extras %}
 
 <!-- Footer -->
 <div class="footer g-color-white-opacity-0_8 g-py-60--lg g-py-30">
@@ -14,39 +15,10 @@
             <!-- Footer Content -->
             <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
                 <div class="u-heading-v3-1 g-brd-white-opacity-0_3 g-mb-25">
-                    <div class="h2 u-heading-v3__title h6 text-uppercase g-brd-primary">Последние статьи</div>
+                    <div class="h2 u-heading-v3__title h6 text-uppercase g-brd-primary">Последние акции</div>
                 </div>
 
-                <article>
-                    <div class="h6 g-mb-2">
-
-                        <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">Incredible template</a>
-
-                    </div>
-                    <div class="small g-color-white-opacity-0_6">May 8, 2017</div>
-                </article>
-
-                <hr class="g-brd-white-opacity-0_1 g-my-10">
-
-                <article>
-                    <div class="h6 g-mb-2">
-
-                        <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">New features</a>
-
-                    </div>
-                    <div class="small g-color-white-opacity-0_6">June 23, 2017</div>
-                </article>
-
-                <hr class="g-brd-white-opacity-0_1 g-my-10">
-
-                <article>
-                    <div class="h6 g-mb-2">
-
-                        <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">New terms and conditions</a>
-
-                    </div>
-                    <div class="small g-color-white-opacity-0_6">September 15, 2017</div>
-                </article>
+                {% last_promotions %}
             </div>
             <!-- End Footer Content -->
 
@@ -60,38 +32,26 @@
                     <ul class="list-unstyled g-mt-minus-10 mb-0">
                         <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                             <div class="h6 g-pr-20 mb-0">
-
                                 <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">О нас</a>
-
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-
                             </div>
                         </li>
                         <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                             <div class="h6 g-pr-20 mb-0">
-
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">Новости и акции</a>
-
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% url 'promotions:list' %}">Акции</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-
                             </div>
                         </li>
                         <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                             <div class="h6 g-pr-20 mb-0">
-
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">Блог</a>
-
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#!">О доставке</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-
                             </div>
                         </li>
                         <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                             <div class="h6 g-pr-20 mb-0">
-
                                 <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{% url 'contacts:contacts' %}">Контакты</a>
-
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-
                             </div>
                         </li>
                     </ul>

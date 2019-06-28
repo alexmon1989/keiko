@@ -49,7 +49,11 @@
                         <a href="tel:{{ header_phone|cut:' '|cut:'('|cut:')'|cut:'-' }}" class="nav-link px-0">{{ header_phone }}</a>
                     </li>
                     <li class="nav-item g-mx-80--lg">
-                        <a href="#!" class="nav-link px-0">Акции</a>
+                        {% if request.resolver_match.view_name != 'contacts:contacts' %}
+                            <a href="{% url 'promotions:list' %}" class="nav-link px-0">Акции</a>
+                        {% else %}
+                            <span class="nav-link px-0 active">Акции</span>
+                        {% endif %}
                     </li>
                     <li class="nav-item g-mx-80--lg">
                         <a href="#!" class="nav-link px-0">О доставке</a>
