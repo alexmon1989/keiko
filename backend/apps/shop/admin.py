@@ -39,6 +39,7 @@ class ProductAdmin(admin.ModelAdmin):
                 'slug',
                 'weight',
                 'image',
+                'description_short',
                 'description',
                 'primary_category',
                 'categories',

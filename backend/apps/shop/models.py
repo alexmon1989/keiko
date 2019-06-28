@@ -68,7 +68,19 @@ class Product(TimeStampedModel, SeoModel):
     slug = models.SlugField()
     weight = models.IntegerField('Вес', default=1000, help_text='Чем выше вес, тем выше элемент в списке продуктов.')
     image = models.ImageField('Изображение', null=True, blank=True, help_text='Размер: 450px * 450px')
-    description = RichTextField('Описание', null=True, blank=True)
+    description = RichTextField(
+        'Описание полное',
+        null=True,
+        blank=True,
+        help_text='Отображается на странице продукта'
+    )
+    description_short = models.TextField(
+        'Описание короткое',
+        default='',
+        null=True,
+        blank=True,
+        help_text='Отображается на странице категории продуктов или ингредиента'
+    )
     primary_category = models.ForeignKey(Category, verbose_name='Первичная категория', blank=True, null=True,
                                          on_delete=models.SET_NULL, related_name='primary_category',
                                          help_text='Для блока "Хлебные крошки"')
