@@ -1,8 +1,20 @@
 /* Add here all your css styles (customizations) */
 // Variables
 @import "custom.variables";
+// Variables
+@import "../tools/mixins/units";
 // Mixins
 @import "custom.mixins";
+
+.content {
+  padding-top: 110px;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding-top: 220px;
+  }
+}
 
 .g-bg-blue-gray {
   background-color: #343a40 !important;
@@ -243,6 +255,49 @@
     &:focus,
     &:hover {
       border-bottom: none !important;
+    }
+  }
+}
+
+#js-header {
+  .navbar {
+    padding: 0 1rem;
+
+    .nav-link {
+      color: hsla(0,0%,100%,.8);
+      font-size: 14px;
+    }
+
+    @media (min-width: 769px) {
+      .container-fluid {
+        padding-left: 382px;
+      }
+    }
+  }
+}
+
+.u-header__section--light .hamburger-inner, .u-header__section--light .hamburger-inner::after, .u-header__section--light .hamburger-inner::before {
+    background: #e8e8e8;
+}
+
+#navbar-menu {
+  flex-basis: 100%;
+
+  .js-tabs-mobile-control {
+    margin-left: 0;
+  }
+
+  .js-scrollbar {
+    max-height: 80vh;
+  }
+
+
+}
+
+header {
+  .nav-link {
+    &:hover, &.active {
+      color: #fcfcfc !important;
     }
   }
 }

@@ -1,31 +1,39 @@
 {% load staticfiles %}
 {% load keiko_extras %}
 
-<header id="js-header"
-        class="u-header u-header--static u-header--show-hide u-header--change-appearance"
-        data-header-fix-moment="500"
-        data-header-fix-effect="slide">
-    <div class="u-header__section u-header__section--dark g-bg-blue-gray g-transition-0_3 g-py-10"
-         data-header-fix-moment-exclude="g-py-10"
-         data-header-fix-moment-classes="g-py-0">
-        <nav class="navbar navbar-expand-lg g-py-0">
-            <!-- Responsive Toggle Button -->
-            <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0"
-                    type="button"
-                    aria-label="Toggle navigation"
-                    aria-expanded="false"
-                    aria-controls="navBar"
-                    data-toggle="collapse"
-                    data-target="#navBar">
+<header id="js-header" class="u-header u-header--sticky-top u-header--toggle-section u-header--change-appearance"
+        data-header-fix-moment="300">
+    <!-- Top Bar -->
+    <div class="u-header__section u-header__section--hidden u-header__section--dark g-bg-black g-py-18">
+        <div class="container">
+            <div class="row flex-column flex-md-row align-items-center justify-content-between g-color-white">
+                {% header_contacts %}
+            </div>
+        </div>
+    </div>
+    <!-- End Top Bar -->
+
+    <div class="u-header__section u-header__section--light g-bg-blue-gray g-py-10--lg"
+         data-header-fix-moment-exclude="g-bg-white-opacity-0_8 g-py-10--lg"
+         data-header-fix-moment-classes="g-bg-white u-shadow-v18 g-py-0">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <!-- Responsive Toggle Button -->
+                <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-5 g-right-0"
+                        type="button"
+                        aria-label="Toggle menu"
+                        aria-expanded="false"
+                        aria-controls="navbar-menu"
+                        data-toggle="collapse"
+                        data-target="#navbar-menu">
                     <span class="hamburger hamburger--slider">
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>
                         </span>
                     </span>
-            </button>
-            <!-- End Responsive Toggle Button -->
+                </button>
+                <!-- End Responsive Toggle Button -->
 
-            <div>
                 <!-- Logo -->
                 {% if request.resolver_match.view_name != 'home' %}
                     <a href="/" class="navbar-brand"><img src="{% static "img/logo/logo-mobile.png" %}" alt="Keiko суши и роллы" title="Keiko суши и роллы"></a>
@@ -34,44 +42,42 @@
                 {% endif %}
                 <!-- End Logo -->
 
-                <button type="button" id="sidebarCollapse" class="btn btn-md u-btn-darkred g-ml-30">
-                    <i class="fa fa-align-left"></i>
-                    <span>Меню</span>
-                </button>
-            </div>
-
-            <!-- Navigation -->
-            <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--sm"
-                 id="navBar">
-                <ul class="navbar-nav text-uppercase g-font-weight-600 g-font-size-14 mr-auto">
-                    <li class="nav-item g-ml-40--lg g-mr-80--lg">
-                        {% header_phone as header_phone %}
-                        <a href="tel:{{ header_phone|cut:' '|cut:'('|cut:')'|cut:'-' }}" class="nav-link px-0">{{ header_phone }}</a>
-                    </li>
-                    <li class="nav-item g-mx-80--lg">
-                        {% if request.resolver_match.view_name != 'contacts:contacts' %}
-                            <a href="{% url 'promotions:list' %}" class="nav-link px-0">Акции</a>
-                        {% else %}
-                            <span class="nav-link px-0 active">Акции</span>
-                        {% endif %}
-                    </li>
-                    <li class="nav-item g-mx-80--lg">
-                        <a href="#!" class="nav-link px-0">О доставке</a>
-                    </li>
-                    <li class="nav-item g-mx-80--lg">
-                        {% if request.resolver_match.view_name != 'contacts:contacts' %}
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
+                    <ul class="navbar-nav text-uppercase g-font-weight-600 mr-auto">
+                        <li class="nav-item g-mr-40--lg">
+                            {% if request.resolver_match.view_name != 'home' %}
+                                <a href="{% url 'home' %}" class="nav-link px-0">Главная</a>
+                            {% else %}
+                                <span class="nav-link px-0 active">Главная</span>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item g-mx-40--lg">
+                            {% if request.resolver_match.view_name != 'promotions:list' %}
+                                <a href="{% url 'promotions:list' %}" class="nav-link px-0">Акции</a>
+                            {% else %}
+                                <span class="nav-link px-0 active">Акции</span>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item g-mx-40--lg">
+                            <a href="#!" class="nav-link px-0">О доставке</a>
+                        </li>
+                        <li class="nav-item g-ml-40--lg">
+                            {% if request.resolver_match.view_name != 'contacts:contacts' %}
                             <a href="{% url 'contacts:contacts' %}" class="nav-link px-0">Контакты</a>
                         {% else %}
                             <span class="nav-link px-0 active">Контакты</span>
                         {% endif %}
-                    </li>
-                </ul>
-            </div>
-            <!-- End Navigation -->
+                        </li>
+                    </ul>
+                </div>
 
-            <div class="g-mr-40">
-                <cart :cart="cart"/>
+                <div class="ml-auto"><cart :cart="cart"/></div>
+                <!-- End Navigation -->
+
+                {% include '_partials/navbar_menu.html' %}
             </div>
         </nav>
     </div>
 </header>
+<!-- End Header -->

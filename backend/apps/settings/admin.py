@@ -1,6 +1,6 @@
 from django.contrib import admin
 from singlemodeladmin import SingleModelAdmin
-from .models import FooterContacts, RobotsTxt, SocialUrl, HeaderPhone, Analytics
+from .models import FooterContacts, RobotsTxt, SocialUrl, HeaderContact, Analytics
 from apps.shop.models import DeliverySettings, CardPayment
 
 
@@ -29,9 +29,10 @@ class RobotsTxtAdmin(SingleModelAdmin):
     pass
 
 
-@admin.register(HeaderPhone)
-class HeaderPhoneAdmin(SingleModelAdmin):
-    pass
+@admin.register(HeaderContact)
+class HeaderContactAdmin(admin.ModelAdmin):
+    ordering = ('pk',)
+    list_display = ('value', 'is_phone_number')
 
 
 @admin.register(SocialUrl)

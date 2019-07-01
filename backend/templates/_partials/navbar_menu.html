@@ -1,0 +1,85 @@
+{% load staticfiles %}
+{% load shop_extras %}
+
+<div class="collapse g-mt-20" id="navbar-menu">
+    <!-- Nav tabs -->
+    <ul class="nav justify-content-center u-nav-v1-1 u-nav-primary u-nav-rounded-3 g-mb-20"
+        role="tablist"
+        data-target="nav-1-1-primary-hor-center"
+        data-tabs-mobile-type="slide-up-down"
+        data-btn-classes="btn btn-md btn-block u-btn-outline-primary g-mb-20">
+        <li class="nav-item">
+            <a class="nav-link {% if 'category/' in request.path %}active{% endif %}{% if not 'category/' in request.path and not 'ingredient/' in request.path %}active{% endif %}"
+               data-toggle="tab"
+               href="#nav-1-1-primary-hor-center--1"
+               role="tab">Категории</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if 'ingredient/' in request.path %}active{% endif %}"
+               data-toggle="tab"
+               href="#nav-1-1-primary-hor-center--2"
+               role="tab">Ингредиенты</a>
+        </li>
+    </ul>
+    <!-- End Nav tabs -->
+
+    <!-- Tab panes -->
+    <div id="nav-1-1-primary-hor-center" class="tab-content">
+        <div class="js-scrollbar tab-pane fade {% if 'category/' in request.path %}show active{% endif %}{% if not 'category/' in request.path and not 'ingredient/' in request.path %}show active{% endif %}"
+             id="nav-1-1-primary-hor-center--1"
+             role="tabpanel">
+            {% categories as categories %}
+            {% for category in categories %}
+                <div class="row sidebar__category no-gutters">
+                    <div class="col-4 px-0">
+                        <a href="{{ category.get_absolute_url }}">
+                            {% if category.image %}
+                                <img src="{{ category.image.url }}" alt="{{ category }}" class="img-fluid">
+                            {% else %}
+                                <img src="{% static 'img/no-image-sidebar.png' %}" alt="" class="img-fluid">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="col-8 px-0 align-self-center">
+                        {% if category.slug|add:"/" in request.path %}
+                            <span class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover active">{{ category }}</span>
+                        {% else %}
+                            <a href="{{ category.get_absolute_url }}"
+                               class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover {% if product.primary_category.pk == category.pk or category.slug|add:"/" in request.path %}active{% endif %}"
+                            >{{ category }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="js-scrollbar tab-pane fade {% if 'ingredient/' in request.path %}show active{% endif %}"
+             id="nav-1-1-primary-hor-center--2"
+             role="tabpanel">
+            {% ingredients as ingredients %}
+            {% for ingredient in ingredients %}
+                <div class="row sidebar__category no-gutters">
+                    <div class="col-4 px-0">
+                        <a href="{{ ingredient.get_absolute_url }}">
+                            {% if ingredient.image %}
+                                <img src="{{ ingredient.image.url }}" alt="{{ ingredient }}" class="img-fluid">
+                            {% else %}
+                                <img src="{% static 'img/no-image-sidebar.png' %}" alt="" class="img-fluid">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="col-8 px-0 align-self-center">
+                        {% if ingredient.slug|add:"/" in request.path %}
+                            <span class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover active">{{ ingredient }}</span>
+                        {% else %}
+                            <a href="{{ ingredient.get_absolute_url }}"
+                               class="g-font-size-13 g-color-white g-color-primary--hover g-color-primary--active g-text-underline--none--hover"
+                            >{{ ingredient }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- End Tab panes -->
+</div>

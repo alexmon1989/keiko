@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.sites.models import Site
-from apps.settings.models import FooterContacts, SocialUrl, HeaderPhone
+from apps.settings.models import FooterContacts, SocialUrl, HeaderContact
 
 register = template.Library()
 
@@ -20,10 +20,9 @@ def social_urls():
     }
 
 
-@register.simple_tag()
-def header_phone():
-    phone, created = HeaderPhone.objects.get_or_create()
-    return phone.value
+@register.inclusion_tag('header_contacts.html')
+def header_contacts():
+    return {'contacts': HeaderContact.objects.order_by('pk')}
 
 
 @register.filter(name='cut')

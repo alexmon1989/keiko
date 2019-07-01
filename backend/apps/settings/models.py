@@ -38,13 +38,18 @@ class SocialUrl(models.Model):
         verbose_name_plural = 'Ссылки на социальные сети'
 
 
-class HeaderPhone(models.Model):
-    """Модель для управления значением номера телефона в шапке сайта."""
+class HeaderContact(models.Model):
+    """Модель для управления контактными данными в шапке сайта."""
     value = models.CharField('Значение', default='', max_length=255)
+    is_phone_number = models.BooleanField(
+        'Номер телефона',
+        default=True,
+        help_text='Если это номер телефона, то на сайте будет отображён как ссылка.'
+    )
 
     class Meta:
-        verbose_name = 'Номер телефона в шапке'
-        verbose_name_plural = 'Номер телефона в шапке'
+        verbose_name = 'Контакт в шапке'
+        verbose_name_plural = 'Контакты в шапке'
 
 
 class Analytics(models.Model):

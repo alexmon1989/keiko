@@ -48,14 +48,6 @@ $(document).on('ready', function () {
 
     // initialization of popups
     $.HSCore.components.HSModalWindow.init('[data-modal-target]');
-
-    $('#sidebarCollapse').on('click', function () {
-        $('.sidebar, .content, .navbar-brand, #sidebarCollapse').toggleClass('active');
-    });
-
-    $('#close-menu-btn').on('click', function () {
-        $('.sidebar, .content, .navbar-brand, #sidebarCollapse').removeClass('active');
-    });
 });
 
 $(window).on('resize', function () {

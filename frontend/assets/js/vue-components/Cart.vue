@@ -1,5 +1,5 @@
 <template>
-    <div class="u-basket d-inline-block g-valign-middle g-pt-6 g-ml-30 g-ml-0--lg g-pos-abs g-top-12 g-right-65 g-pos-rel--lg g-top-0--lg g-right-0--lg">
+    <div class="u-basket d-inline-block g-valign-middle g-pt-6 g-ml-30 g-ml-0--lg g-pos-abs g-top-15 g-right-65 g-pos-rel--lg g-top-0--lg g-right-0--lg">
         <a href="/shop/cart/"
            rel="nofollow"
            id="basket-bar-invoker"
@@ -20,7 +20,7 @@
 
         <div id="basket-bar"
              v-show="cart.length > 0"
-             class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-brd-top g-brd-2 g-brd-primary g-color-white-opacity-0_8 g-mt-15--lg g-mt-10--lg--scrolling g-bg-gray-dark-v1"
+             class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-brd-top g-brd-2 g-brd-primary g-color-white-opacity-0_8 g-mt-15--lg g-mt-15--lg--scrolling g-bg-gray-dark-v1"
              aria-labelledby="basket-bar-invoker">
             <div class="js-scrollbar g-height-280">
 

@@ -1,0 +1,13 @@
+{% load keiko_extras %}
+
+{% for contact in contacts %}
+    <div class="col-auto g-px-15">
+        {% if contact.is_phone_number %}
+            <i class="fa fa-phone g-font-size-24 g-valign-middle g-color-primary g-mr-10"></i>
+            <a href="tel:{{ contact.value|cut:' '|cut:'('|cut:')'|cut:'-' }}"
+               class="g-color-white">{{ contact.value }}</a>
+        {% else %}
+            <i class="fa fa-location-arrow g-font-size-24 g-valign-middle g-color-primary g-mr-10"></i> {{ contact.value }}
+        {% endif %}
+    </div>
+{% endfor %}
