@@ -281,17 +281,9 @@
 }
 
 #navbar-menu {
-  flex-basis: 100%;
-
   .js-tabs-mobile-control {
     margin-left: 0;
   }
-
-  .js-scrollbar {
-    max-height: 60vh;
-  }
-
-
 }
 
 header {
@@ -300,4 +292,12 @@ header {
       color: #fcfcfc !important;
     }
   }
+
+  .navbar-collapse.u-main-nav--overlay .u-main-nav__list-wrapper {
+    padding: 0 0.71429rem;
+  }
+}
+
+.u-header__section:nth-child(1) {
+    z-index: 4;
 }

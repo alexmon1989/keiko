@@ -28,6 +28,7 @@ import './components/hs.tabs.js';
 import './components/hs.popup.js';
 import './components/hs.carousel.js';
 import './components/hs.modal-window.js';
+import './components/hs.navigation.js';
 
 // JS Plugins Init
 $(document).on('ready', function () {
@@ -39,6 +40,9 @@ $(document).on('ready', function () {
 
     // initialization of HSScrollBar component
     $.HSCore.components.HSScrollBar.init( $('.js-scrollbar') );
+
+    // initialization of HSNavigation component
+    $.HSCore.components.HSNavigation.init($('.js-navigation'));
 
     // initialization of tabs
     $.HSCore.components.HSTabs.init('[role="tablist"]');
