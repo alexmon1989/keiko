@@ -332,7 +332,9 @@
     this.body.removeClass( this.bodyClasses );
     this.element
         .removeClass('u-main-nav--overlay')
-        .removeClass(this.config.navigationInitClasses);
+        .removeClass(this.config.navigationInitClasses)
+        .removeClass('show')
+        .addClass('collapse');
 
     this.body.removeClass( this.bodyClasses ).removeClass(this.config.navigationInitBodyClasses);
 
