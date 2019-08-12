@@ -14,58 +14,47 @@ import json
 from hashlib import sha512
 
 
-class CategoryDetailView(DetailView):
+class MyDetailView(DetailView):
+    """Расширение DetailView для дальнейшего использования в классах отображения страниц ингредиента и категории."""
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products_list = self.object.product_set.filter(is_enabled=True)
+
+        # Сортировка
+        sort_by = self.request.GET.get('sort_by')
+        if sort_by:
+            products_list = products_list.order_by(sort_by)
+
+        # Параметры для пагинации
+        page = self.request.GET.get('page')
+        show = self.request.GET.get('show', 20)
+        if show != 'all':
+            try:
+                show = int(show)
+            except ValueError:
+                raise Http404
+            paginator = Paginator(products_list, show)
+            try:
+                context['products'] = paginator.get_page(page)
+            except AssertionError:
+                raise Http404
+        else:
+            context['products'] = products_list
+        return context
+
+
+class CategoryDetailView(MyDetailView):
     """Страница категории."""
     model = Category
     queryset = Category.objects.filter(is_enabled=True)
     template_name = 'shop/category_detail/category_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        products_list = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
-        # Параметры для пагинации
-        page = self.request.GET.get('page')
-        show = self.request.GET.get('show', 20)
-        if show != 'all':
-            try:
-                show = int(show)
-            except ValueError:
-                raise Http404
-            paginator = Paginator(products_list, show)
-            try:
-                context['products'] = paginator.get_page(page)
-            except AssertionError:
-                raise Http404
-        else:
-            context['products'] = products_list
-        return context
 
-
-class IngredientDetailView(DetailView):
+class IngredientDetailView(MyDetailView):
     """Страница индгредиента."""
     model = Ingredient
     queryset = Ingredient.objects.filter(is_enabled=True)
     template_name = 'shop/ingredient_detail/ingredient_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        products_list = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
-        # Параметры для пагинации
-        page = self.request.GET.get('page')
-        show = self.request.GET.get('show', 20)
-        if show != 'all':
-            try:
-                show = int(show)
-            except ValueError:
-                raise Http404
-            paginator = Paginator(products_list, show)
-            try:
-                context['products'] = paginator.get_page(page)
-            except AssertionError:
-                raise Http404
-        else:
-            context['products'] = products_list
-        return context
 
 
 class ProductDetailView(DetailView):

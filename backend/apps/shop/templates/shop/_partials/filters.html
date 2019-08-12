@@ -1,0 +1,63 @@
+{% load keiko_extras %}
+
+<div class="d-flex justify-content-end align-items-center g-pb-20">
+    <!-- Show -->
+    <div class="g-mr-30 g-ml-20">
+        <h2 class="h6 align-middle d-inline-block g-font-weight-400 text-uppercase g-pos-rel g-top-1 mb-0">
+            Отображать:</h2>
+
+        <!-- Secondary Button -->
+        <div class="d-inline-block btn-group g-line-height-1_2">
+            <button type="button"
+                    class="btn btn-secondary dropdown-toggle h6 align-middle g-brd-none g-color-gray-light-v1 g-color-gray-dark-v5--hover g-bg-transparent text-uppercase g-font-weight-300 g-font-size-12 g-pa-0 g-pl-10 g-ma-0"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if request.GET.show == 'all' %}Все{% else %}{{ request.GET.show|default:'20' }}{% endif %}
+            </button>
+            <div class="dropdown-menu rounded-0 g-bg-gray-dark-v2 g-min-width-65" x-placement="bottom-start"
+                 style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 18px, 0px);">
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active {% if request.GET.show == 'all' %}active{% endif %}" href="?{% url_replace request 'show' 'all' %}">Все</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active {% if request.GET.show == '20' or not request.GET.show %}active{% endif %}" href="?{% url_replace request 'show' '20' %}">20</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active {% if request.GET.show == '40' %}active{% endif %}" href="?{% url_replace request 'show' '40' %}">40</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active {% if request.GET.show == '60' %}active{% endif %}" href="?{% url_replace request 'show' '60' %}">60</a>
+            </div>
+        </div>
+        <!-- End Secondary Button -->
+    </div>
+    <!-- End Show -->
+
+    <!-- Sort By -->
+    <div class="g-mr-85">
+        <h2 class="h6 align-middle d-inline-block g-font-weight-400 text-uppercase g-pos-rel g-top-1 mb-0">
+            Сортировать по:</h2>
+
+        <!-- Secondary Button -->
+        <div class="d-inline-block btn-group g-line-height-1_2">
+            <button type="button"
+                    class="btn btn-secondary dropdown-toggle h6 align-middle g-brd-none g-color-gray-light-v1 g-color-gray-dark-v5--hover g-bg-transparent text-uppercase g-font-weight-300 g-font-size-12 g-pa-0 g-pl-10 g-ma-0"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                {% if not request.GET.sort_by or request.GET.sort_by == '-weight' %}
+                    Популярности
+                {% elif request.GET.sort_by == 'price' %}
+                    Цена, дешевые-дорогие
+                {% elif request.GET.sort_by == '-price' %}
+                    Цена, дорогие-дешевые
+                {% elif request.GET.sort_by == 'title' %}
+                    По алфавиту, А-Я
+                {% elif request.GET.sort_by == '-title' %}
+                    По алфавиту, Я-А
+                {% endif %}
+            </button>
+            <div class="dropdown-menu rounded-0 g-bg-gray-dark-v2">
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active  {% if not request.GET.sort_by or request.GET.sort_by == 'popularity' %}active{% endif %}" href="?{% url_replace request 'sort_by' '-weight' %}">Популярности</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active  {% if request.GET.sort_by == 'price_asc' %}active{% endif %}" href="?{% url_replace request 'sort_by' 'price' %}">Цена, дешевые-дорогие</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active  {% if request.GET.sort_by == 'price_desc' %}active{% endif %}" href="?{% url_replace request 'sort_by' '-price' %}">Цена, дорогие-дешевые</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active  {% if request.GET.sort_by == 'alphabet_asc' %}active{% endif %}" href="?{% url_replace request 'sort_by' 'title' %}">По алфавиту, А-Я</a>
+                <a class="dropdown-item g-color-gray-light-v1 g-bg-gray-dark-v3--hover g-font-weight-300 g-color-primary--active g-bg-gray-dark-v3--active  {% if request.GET.sort_by == 'alphabet_desc' %}active{% endif %}" href="?{% url_replace request 'sort_by' '-title' %}">По алфавиту, Я-А</a>
+            </div>
+        </div>
+        <!-- End Secondary Button -->
+    </div>
+    <!-- End Sort By -->
+</div>

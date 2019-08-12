@@ -16,7 +16,7 @@
 
         {% include 'shop/category_detail/_partials/breadcrumbs.html' %}
 
-        {% include 'shop/category_detail/_partials/filters.html' %}
+        {% include 'shop/_partials/filters.html' %}
 
         <div class="row g-pb-40 g-px-20 no-gutters">
             {% for product in products %}
@@ -60,7 +60,7 @@
             {% endfor %}
 
             <div class="col-12">
-                {% include 'shop/category_detail/_partials/pagination.html' %}
+                {% include 'shop/_partials/pagination.html' %}
             </div>
         </div>
 
