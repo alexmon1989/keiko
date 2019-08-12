@@ -1,6 +1,7 @@
 // Styles
 import '../vendor/bootstrap/bootstrap.min.css';
 import '../vendor/icon-awesome/scss/font-awesome.scss';
+import '../vendor/icon-hs/style.css';
 import '../vendor/hamburgers/hamburgers.min.css';
 import '../vendor/animate.css';
 import '../vendor/fancybox/jquery.fancybox.min.css';

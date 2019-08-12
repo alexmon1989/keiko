@@ -6,6 +6,8 @@
 {% block keywords %}{{ category.meta_keywords|default:"" }}{% endblock %}
 {% block description %}{% if category.meta_description %}{{ category.meta_description }}{% else %}Заказать {{ category.title }} в ресторане японской кухни KEIKO. Заказы от 800 рублей доставляем бесплатно 📞 +7 (8672) 29-22-55 звоните!{% endif %}{% endblock %}
 
+{% block extra_meta%}<link rel="canonical" href="{{ request.path }}?show=all" />{% endblock %}
+
 {% block content %}
     <div class="category-detail">
         <div class="g-pa-20">
@@ -13,6 +15,8 @@
         </div>
 
         {% include 'shop/category_detail/_partials/breadcrumbs.html' %}
+
+        {% include 'shop/category_detail/_partials/filters.html' %}
 
         <div class="row g-pb-40 g-px-20 no-gutters">
             {% for product in products %}
@@ -54,6 +58,10 @@
                     </div>
                 </div>
             {% endfor %}
+
+            <div class="col-12">
+                {% include 'shop/category_detail/_partials/pagination.html' %}
+            </div>
         </div>
 
         {% if category.text %}

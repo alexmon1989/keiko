@@ -7,6 +7,7 @@ from django.conf import settings
 from django.shortcuts import redirect, reverse
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings, CardPayment
 from .utils import create_robokassa_url, send_order_email_to_client
 import json
@@ -21,7 +22,22 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
+        products_list = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
+        # Параметры для пагинации
+        page = self.request.GET.get('page')
+        show = self.request.GET.get('show', 20)
+        if show != 'all':
+            try:
+                show = int(show)
+            except ValueError:
+                raise Http404
+            paginator = Paginator(products_list, show)
+            try:
+                context['products'] = paginator.get_page(page)
+            except AssertionError:
+                raise Http404
+        else:
+            context['products'] = products_list
         return context
 
 
@@ -33,7 +49,22 @@ class IngredientDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
+        products_list = self.object.product_set.filter(is_enabled=True).all().order_by('-weight')
+        # Параметры для пагинации
+        page = self.request.GET.get('page')
+        show = self.request.GET.get('show', 20)
+        if show != 'all':
+            try:
+                show = int(show)
+            except ValueError:
+                raise Http404
+            paginator = Paginator(products_list, show)
+            try:
+                context['products'] = paginator.get_page(page)
+            except AssertionError:
+                raise Http404
+        else:
+            context['products'] = products_list
         return context
 
 
