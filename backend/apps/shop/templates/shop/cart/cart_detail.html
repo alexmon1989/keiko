@@ -8,7 +8,13 @@
         </div>
 
         <div class="g-pa-15 g-bg-gray-dark-v2">
-            <order :cart="cart" :delivery-price="{{ delivery_price|stringformat:"i" }}" :delivery-discount-from="{{ delivery_discount_from }}"/>
+            <order :cart="cart"
+                   :delivery-price="{{ delivery_price|stringformat:"i" }}"
+                   :delivery-discount-from="{{ delivery_discount_from }}"
+                   :cash-payment="{{ payment_settings.cash_payment|yesno:"1,0" }}"
+                   :card-payment="{{ payment_settings.card_payment|yesno:"1,0" }}"
+                   :robokassa-payment="{{ payment_settings.robokassa_payment|yesno:"1,0" }}"
+            />
         </div>
     </div>
 

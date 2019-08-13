@@ -109,7 +109,7 @@
                 {% if order.status.pk == 1 %}
                     <div class="col-md-12 g-px-15 d-inline-flex justify-content-center order-1 order-md-3 g-mb-10">
                         <p class="g-bg-red-opacity-0_5 g-pa-30 g-font-size-18 text-center">Для оплаты заказа выполните перевод на карту <br>
-                            <span class="g-font-weight-700 g-color-yellow g-font-size-24">{{ card.card_number }}</span></p>
+                            <span class="g-font-weight-700 g-color-yellow g-font-size-24">{{ payment_settings.card_number }}</span></p>
                     </div>
                 {% endif %}
             {% endif %}

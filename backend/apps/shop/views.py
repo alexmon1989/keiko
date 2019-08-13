@@ -8,7 +8,7 @@ from django.shortcuts import redirect, reverse
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
-from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings, CardPayment
+from .models import Category, Ingredient, Product, Order, CartProduct, DeliverySettings, Payment
 from .utils import create_robokassa_url, send_order_email_to_client
 import json
 from hashlib import sha512
@@ -82,12 +82,17 @@ class CartView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         delivery_settings, created = DeliverySettings.objects.get_or_create()
+
         # Настройки доставки
         if delivery_settings.product:
             context['delivery_price'] = delivery_settings.product.price
         else:
             context['delivery_price'] = 100
         context['delivery_discount_from'] = delivery_settings.price_discount_from
+
+        # Настройки оплаты
+        context['payment_settings'], created = Payment.objects.get_or_create()
+
         return context
 
     @method_decorator(ensure_csrf_cookie)
@@ -211,5 +216,5 @@ class OrderDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['card'], created = CardPayment.objects.get_or_create()
+        context['payment_settings'], created = Payment.objects.get_or_create()
         return context

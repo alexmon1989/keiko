@@ -226,16 +226,19 @@ class DeliverySettings(models.Model):
         app_label = 'settings'
 
 
-class CardPayment(models.Model):
-    """Модель настроек оплаты картой."""
+class Payment(models.Model):
+    """Модель настроек оплаты."""
     card_number = models.CharField('Номер карты', max_length=255, default='')
+    cash_payment = models.BooleanField('Оплата наличными', default=True)
+    card_payment = models.BooleanField('Оплата картой', default=True)
+    robokassa_payment = models.BooleanField('Оплата с помощью Robokassa', default=True)
 
     def __str__(self):
-        return 'Оплата картой'
+        return 'Оплата'
 
     class Meta:
-        verbose_name = 'Оплата картой'
-        verbose_name_plural = 'Оплата картой'
+        verbose_name = 'Оплата'
+        verbose_name_plural = 'Оплата'
         app_label = 'settings'
 
 

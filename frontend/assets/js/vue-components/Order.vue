@@ -62,7 +62,7 @@
             <div class="row g-mb-10">
                 <!-- Left Column -->
                 <div class="col-md-12">
-                    <div class="form-group g-mb-10">
+                    <div class="form-group g-mb-10" v-if="cashPayment">
                         <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
                             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
                                    name="pay_mode"
@@ -78,7 +78,7 @@
                         </label>
                     </div>
 
-                    <div class="form-group g-mb-10">
+                    <div class="form-group g-mb-10" v-if="cardPayment">
                         <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
                             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
                                    name="pay_mode"
@@ -90,11 +90,11 @@
                             <div class="u-check-icon-radio-v4 g-absolute-centered--y g-left-0 g-width-18 g-height-18">
                                 <i class="g-absolute-centered d-block g-width-10 g-height-10 g-bg-primary--checked"></i>
                             </div>
-                            Перевод на карту &nbsp;<i>(без комиссии)</i>
+                            Перевод на карту
                         </label>
                     </div>
 
-                    <div class="form-group g-mb-0">
+                    <div class="form-group g-mb-0" v-if="robokassaPayment">
                         <label class="form-check-inline u-check g-pl-25 ml-0 g-mr-25">
                             <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
                                    name="pay_mode"
@@ -227,7 +227,7 @@
         components: {
             CartActions
         },
-        props: ["cart", "deliveryPrice", "deliveryDiscountFrom"],
+        props: ["cart", "deliveryPrice", "deliveryDiscountFrom", "cashPayment", "cardPayment", "robokassaPayment"],
         data() {
             return {
                 deliveryMode: 'self',
