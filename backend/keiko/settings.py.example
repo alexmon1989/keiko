@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.settings.apps.SettingsConfig',
     'apps.contacts.apps.ContactsConfig',
     'apps.promotions.apps.PromotionsConfig',
+    'apps.delivery.apps.DeliveryConfig',
     'ckeditor_uploader',
     'ckeditor',
     'colorfield'

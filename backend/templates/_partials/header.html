@@ -60,7 +60,11 @@
                             {% endif %}
                         </li>
                         <li class="nav-item g-mx-40--lg">
-                            <a href="#!" class="nav-link px-0">О доставке</a>
+                            {% if request.resolver_match.view_name != 'delivery:index' %}
+                            <a href="{% url 'delivery:index' %}" class="nav-link px-0">О доставке</a>
+                            {% else %}
+                                <span class="nav-link px-0 active">О доставке</span>
+                            {% endif %}
                         </li>
                         <li class="nav-item g-ml-40--lg">
                             {% if request.resolver_match.view_name != 'contacts:contacts' %}
